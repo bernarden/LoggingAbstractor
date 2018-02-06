@@ -24,12 +24,15 @@
     <AssemblyName>Vima.LoggingAbstractor.Sentry</AssemblyName>
     <RootNamespace>Vima.LoggingAbstractor.Sentry</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Raygun.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>..\ca.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" />
     <PackageReference Include="SharpRaven" Version="2.2.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
