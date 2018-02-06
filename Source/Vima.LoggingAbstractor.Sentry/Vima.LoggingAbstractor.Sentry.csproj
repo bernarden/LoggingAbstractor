@@ -1,10 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0</FileVersion>
+    <Authors>Victor Usoltsev</Authors>
+    <Description>Logging Abstractor is a library for .NET that allows you to swap out logging providers with ease.</Description>
+    <Copyright>Copyright © Victor Usoltsev 2018</Copyright>
+    <PackageLicenseUrl>https://github.com/bernarden/LoggingAbstractor/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/bernarden/LoggingAbstractor/master/Resources/NugetIcon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/bernarden/LoggingAbstractor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>logging abstractor abstraction logger</PackageTags>
+    <PackageProjectUrl>https://github.com/bernarden/LoggingAbstractor</PackageProjectUrl>
+    <Company>Vima</Company>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Product>LoggingAbstractor.Sentry</Product>
+    <PackageId>LoggingAbstractor.Sentry</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <TargetFrameworks>net47;net46;net45;net40;net35</TargetFrameworks>
+    <AssemblyName>Vima.LoggingAbstractor.Sentry</AssemblyName>
+    <RootNamespace>Vima.LoggingAbstractor.Sentry</RootNamespace>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Raygun.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Raygun.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
