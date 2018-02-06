@@ -10,7 +10,7 @@ namespace Vima.LoggingAbstractor.Core
         /// <summary>
         /// Traces the message.
         /// </summary>
-        /// <param name="message">The message.</param>
+        /// <param name="message">The message to be logged.</param>
         void TraceMessage(string message);
 
         /// <summary>
