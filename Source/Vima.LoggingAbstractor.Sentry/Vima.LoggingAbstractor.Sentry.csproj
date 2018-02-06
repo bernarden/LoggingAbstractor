@@ -24,12 +24,14 @@
     <AssemblyName>Vima.LoggingAbstractor.Sentry</AssemblyName>
     <RootNamespace>Vima.LoggingAbstractor.Sentry</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Raygun.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>..\ca.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="SharpRaven" Version="2.2.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
