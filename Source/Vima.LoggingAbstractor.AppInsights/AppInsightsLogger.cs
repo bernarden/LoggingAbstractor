@@ -6,7 +6,7 @@ using Vima.LoggingAbstractor.Core;
 namespace Vima.LoggingAbstractor.AppInsights
 {
     /// <summary>
-    /// Represents an instance of an Application Insights logger. 
+    /// Represents an instance of an Application Insights logger.
     /// </summary>
     public class AppInsightsLogger : ILogger
     {
@@ -47,7 +47,6 @@ namespace Vima.LoggingAbstractor.AppInsights
         public void TraceException(Exception exception)
         {
             _telemetryClient.Track(new ExceptionTelemetry(exception));
-
         }
 
         /// <summary>
