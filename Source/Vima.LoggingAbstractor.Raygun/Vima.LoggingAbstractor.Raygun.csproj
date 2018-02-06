@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFrameworks>net451;netstandard1.6</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Raygun.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net451'">
