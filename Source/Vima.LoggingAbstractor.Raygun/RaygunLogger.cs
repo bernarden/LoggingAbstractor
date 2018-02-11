@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Mindscape.Raygun4Net;
 using Vima.LoggingAbstractor.Core;
+using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Raygun
 {
@@ -26,8 +28,7 @@ namespace Vima.LoggingAbstractor.Raygun
         /// <param name="message">The message to be logged.</param>
         public void TraceMessage(string message)
         {
-            var messageException = new RaygunMessageException(message);
-            _raygunClient.Send(messageException);
+            TraceMessage(message, LoggingSeverityLevel.Verbose);
         }
 
         /// <summary>
@@ -36,6 +37,17 @@ namespace Vima.LoggingAbstractor.Raygun
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingSeverityLevel">The logging severity level.</param>
         public void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel)
+        {
+            TraceMessage(message, LoggingSeverityLevel.Verbose, new List<ILoggingAdditionalParameter>());
+        }
+
+        /// <summary>
+        /// Traces the message.
+        /// </summary>
+        /// <param name="message">The message to be logged.</param>
+        /// <param name="loggingSeverityLevel">The logging severity level.</param>
+        /// <param name="parameters">The additional parameters.</param>
+        public void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
             var messageException = new RaygunMessageException(message);
             _raygunClient.Send(messageException);
@@ -47,7 +59,7 @@ namespace Vima.LoggingAbstractor.Raygun
         /// <param name="exception">The exception.</param>
         public void TraceException(Exception exception)
         {
-            _raygunClient.Send(exception);
+            TraceException(exception, LoggingSeverityLevel.Critical);
         }
 
         /// <summary>
@@ -56,6 +68,17 @@ namespace Vima.LoggingAbstractor.Raygun
         /// <param name="exception">The exception.</param>
         /// <param name="loggingSeverityLevel">The logging severity level.</param>
         public void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel)
+        {
+            TraceException(exception, LoggingSeverityLevel.Critical, new List<ILoggingAdditionalParameter>());
+        }
+
+        /// <summary>
+        /// Traces the exception.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        /// <param name="loggingSeverityLevel">The logging severity level.</param>
+        /// <param name="parameters">The additional parameters.</param>
+        public void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
             _raygunClient.Send(exception);
         }
