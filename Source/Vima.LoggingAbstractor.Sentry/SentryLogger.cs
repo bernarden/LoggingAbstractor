@@ -10,7 +10,7 @@ namespace Vima.LoggingAbstractor.Sentry
     /// <summary>
     /// Represents an instance of a Sentry logger.
     /// </summary>
-    public class SentryLogger : ILogger
+    public class SentryLogger : LoggerBase
     {
         private readonly RavenClient _ravenClient;
 
@@ -27,28 +27,9 @@ namespace Vima.LoggingAbstractor.Sentry
         /// Traces the message.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
-        public void TraceMessage(string message)
-        {
-            TraceMessage(message, LoggingSeverityLevel.Verbose);
-        }
-
-        /// <summary>
-        /// Traces the message.
-        /// </summary>
-        /// <param name="message">The message to be logged.</param>
-        /// <param name="loggingSeverityLevel">The logging severity level.</param>
-        public void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel)
-        {
-            TraceMessage(message, LoggingSeverityLevel.Verbose, new List<ILoggingAdditionalParameter>());
-        }
-
-        /// <summary>
-        /// Traces the message.
-        /// </summary>
-        /// <param name="message">The message to be logged.</param>
         /// <param name="loggingSeverityLevel">The logging severity level.</param>
         /// <param name="parameters">The additional parameters.</param>
-        public void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        public override void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
             _ravenClient.Capture(new SentryEvent(message));
         }
@@ -57,28 +38,9 @@ namespace Vima.LoggingAbstractor.Sentry
         /// Traces the exception.
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
-        public void TraceException(Exception exception)
-        {
-            TraceException(exception, LoggingSeverityLevel.Critical);
-        }
-
-        /// <summary>
-        /// Traces the exception.
-        /// </summary>
-        /// <param name="exception">The exception to be logged.</param>
-        /// <param name="loggingSeverityLevel">The logging severity level.</param>
-        public void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel)
-        {
-            TraceException(exception, LoggingSeverityLevel.Critical, new List<ILoggingAdditionalParameter>());
-        }
-
-        /// <summary>
-        /// Traces the exception.
-        /// </summary>
-        /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingSeverityLevel">The logging severity level.</param>
         /// <param name="parameters">The additional parameters.</param>
-        public void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        public override void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
             _ravenClient.Capture(new SentryEvent(exception));
         }
