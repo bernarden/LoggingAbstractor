@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.Core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.Raygun", "Vima.LoggingAbstractor.Raygun\Vima.LoggingAbstractor.Raygun.csproj", "{5CADCE35-9157-4644-A9C2-058D8E8AE8BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vima.LoggingAbstractor.Sentry", "Vima.LoggingAbstractor.Sentry\Vima.LoggingAbstractor.Sentry.csproj", "{CD2797B3-0861-435A-9B36-ADB457E9242A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.Sentry", "Vima.LoggingAbstractor.Sentry\Vima.LoggingAbstractor.Sentry.csproj", "{CD2797B3-0861-435A-9B36-ADB457E9242A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vima.LoggingAbstractor.AppInsights", "Vima.LoggingAbstractor.AppInsights\Vima.LoggingAbstractor.AppInsights.csproj", "{5F507DDE-69FC-464F-AC7E-069E2D16D05D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.AppInsights", "Vima.LoggingAbstractor.AppInsights\Vima.LoggingAbstractor.AppInsights.csproj", "{5F507DDE-69FC-464F-AC7E-069E2D16D05D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3C17934E-6CA1-4F9B-BBB5-40405D4489E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{9F33D991-BD90-406B-9A62-4D1C7D184368}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ECC3568E-2B5D-4CD9-90E3-8727BA55E179}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +42,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3FB0E95B-327C-4679-8DB4-4769813BED6B} = {3C17934E-6CA1-4F9B-BBB5-40405D4489E2}
+		{5CADCE35-9157-4644-A9C2-058D8E8AE8BB} = {9F33D991-BD90-406B-9A62-4D1C7D184368}
+		{CD2797B3-0861-435A-9B36-ADB457E9242A} = {9F33D991-BD90-406B-9A62-4D1C7D184368}
+		{5F507DDE-69FC-464F-AC7E-069E2D16D05D} = {9F33D991-BD90-406B-9A62-4D1C7D184368}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81C432BA-8657-42A6-BC44-C0D267D70BF8}
