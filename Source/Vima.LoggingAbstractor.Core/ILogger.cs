@@ -33,20 +33,20 @@ namespace Vima.LoggingAbstractor.Core
         /// <summary>
         /// Traces the exception.
         /// </summary>
-        /// <param name="exception">The exception.</param>
+        /// <param name="exception">The exception to be logged.</param>
         void TraceException(Exception exception);
 
         /// <summary>
         /// Traces the exception.
         /// </summary>
-        /// <param name="exception">The exception.</param>
+        /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingSeverityLevel">The logging severity level.</param>
         void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel);
 
         /// <summary>
         /// Traces the exception.
         /// </summary>
-        /// <param name="exception">The exception.</param>
+        /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingSeverityLevel">The logging severity level.</param>
         /// <param name="parameters">The additional parameters.</param>
         void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters);
