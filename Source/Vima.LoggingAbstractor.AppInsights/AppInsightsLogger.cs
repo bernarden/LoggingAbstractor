@@ -57,7 +57,7 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <summary>
         /// Traces the exception.
         /// </summary>
-        /// <param name="exception">The exception.</param>
+        /// <param name="exception">The exception to be logged.</param>
         public void TraceException(Exception exception)
         {
             TraceException(exception, LoggingSeverityLevel.Critical);
@@ -66,7 +66,7 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <summary>
         /// Traces the exception.
         /// </summary>
-        /// <param name="exception">The exception.</param>
+        /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingSeverityLevel">The logging severity level.</param>
         public void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel)
         {
@@ -76,7 +76,7 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <summary>
         /// Traces the exception.
         /// </summary>
-        /// <param name="exception">The exception.</param>
+        /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingSeverityLevel">The logging severity level.</param>
         /// <param name="parameters">The additional parameters.</param>
         public void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
