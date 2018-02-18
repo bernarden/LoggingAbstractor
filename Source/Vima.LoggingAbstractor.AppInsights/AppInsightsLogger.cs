@@ -23,6 +23,8 @@ namespace Vima.LoggingAbstractor.AppInsights
             _telemetryClient = telemetryClient ?? throw new ArgumentNullException(nameof(telemetryClient));
         }
 
+        private static LoggingSeverityLevel MinimalLoggingLevel => LoggingSeverityLevel.Verbose;
+
         /// <summary>
         /// Traces the message.
         /// </summary>
@@ -31,6 +33,11 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <param name="parameters">The additional parameters.</param>
         public override void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
+            if (loggingSeverityLevel < MinimalLoggingLevel)
+            {
+                return;
+            }
+
             _telemetryClient.Track(new TraceTelemetry(message));
         }
 
@@ -42,6 +49,11 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <param name="parameters">The additional parameters.</param>
         public override void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
+            if (loggingSeverityLevel < MinimalLoggingLevel)
+            {
+                return;
+            }
+
             _telemetryClient.Track(new ExceptionTelemetry(exception));
         }
     }

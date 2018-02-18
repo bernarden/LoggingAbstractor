@@ -22,6 +22,8 @@ namespace Vima.LoggingAbstractor.Raygun
             _raygunClient = raygunClient ?? throw new ArgumentNullException(nameof(raygunClient));
         }
 
+        private static LoggingSeverityLevel MinimalLoggingLevel => LoggingSeverityLevel.Verbose;
+
         /// <summary>
         /// Traces the message.
         /// </summary>
@@ -30,6 +32,11 @@ namespace Vima.LoggingAbstractor.Raygun
         /// <param name="parameters">The additional parameters.</param>
         public override void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
+            if (loggingSeverityLevel < MinimalLoggingLevel)
+            {
+                return;
+            }
+
             var messageException = new RaygunMessageException(message);
             _raygunClient.Send(messageException);
         }
@@ -42,6 +49,11 @@ namespace Vima.LoggingAbstractor.Raygun
         /// <param name="parameters">The additional parameters.</param>
         public override void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
+            if (loggingSeverityLevel < MinimalLoggingLevel)
+            {
+                return;
+            }
+
             _raygunClient.Send(exception);
         }
     }
