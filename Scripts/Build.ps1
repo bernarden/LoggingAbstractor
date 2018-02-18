@@ -25,7 +25,8 @@ properties {
     @{"Framework" = "net45"; "TestingFramework" = "net-4.5"; "Utility" = "NUnit";},
     @{"Framework" = "net451"; "TestingFramework" = "net-4.0"; "Utility" = "NUnit";},
     @{"Framework" = "net452"; "TestingFramework" = "net-4.5"; "Utility" = "NUnit";},   
-    @{"Framework" = "net46"; "TestingFramework" = "net46"; "Utility" = "DotnetTest";}
+    @{"Framework" = "net46"; "TestingFramework" = "net46"; "Utility" = "DotnetTest";},
+    @{"Framework" = "net47"; "TestingFramework" = "net47"; "Utility" = "DotnetTest";}
     )
 
   $ProjectsToPublish=@(
