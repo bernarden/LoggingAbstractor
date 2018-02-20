@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net47;net46;net45;net40;net35;net20;netstandard1.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net47;net46;net45;net40;net35;netstandard1.0;netstandard2.0</TargetFrameworks>
     <AssemblyName>Vima.LoggingAbstractor.Core</AssemblyName>
     <RootNamespace>Vima.LoggingAbstractor.Core</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Core.xml</DocumentationFile>
@@ -43,10 +43,6 @@
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net35'">
     <DefineConstants>NET35</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net20'">
-    <DefineConstants>NET20</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.0'">

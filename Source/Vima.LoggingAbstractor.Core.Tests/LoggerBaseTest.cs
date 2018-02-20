@@ -20,11 +20,11 @@ namespace Vima.LoggingAbstractor.Core.Tests
                     foreach (var currentLoggingLevel in loggingLevels)
                     {
                         // Arrange
-                        TestLogger logger = new TestLogger(minimalLoggingLevel);
+                        TestLoggerBase loggerBase = new TestLoggerBase(minimalLoggingLevel);
                         var expectedResult = ShouldClientLogTrace(minimalLoggingLevel, currentLoggingLevel);
 
                         // Act
-                        var result = logger.ShouldBeTraced(currentLoggingLevel);
+                        var result = loggerBase.ShouldBeTraced(currentLoggingLevel);
 
                         // Assert
                         result.Should().Be(expectedResult, $"current logging level is '{currentLoggingLevel:G}' and minimal logging level is '{minimalLoggingLevel.ToString()}'");

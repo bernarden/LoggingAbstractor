@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Mindscape.Raygun4Net;
 using Vima.LoggingAbstractor.Core;
+using Vima.LoggingAbstractor.Core.Extensions;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Raygun
@@ -29,8 +31,8 @@ namespace Vima.LoggingAbstractor.Raygun
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        /// <param name="parameters">The additional parameters.</param>
-        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        /// <param name="parameters">The logging parameters.</param>
+        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
@@ -38,7 +40,7 @@ namespace Vima.LoggingAbstractor.Raygun
             }
 
             var messageException = new RaygunMessageException(message);
-            _raygunClient.Send(messageException);
+            _raygunClient.Send(messageException, parameters.ExtractTags().ToList());
         }
 
         /// <summary>
@@ -46,15 +48,15 @@ namespace Vima.LoggingAbstractor.Raygun
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        /// <param name="parameters">The additional parameters.</param>
-        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        /// <param name="parameters">The logging parameters.</param>
+        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
                 return;
             }
 
-            _raygunClient.Send(exception);
+            _raygunClient.Send(exception, parameters.ExtractTags().ToList());
         }
     }
 }

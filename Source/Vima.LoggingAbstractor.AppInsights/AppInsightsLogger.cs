@@ -30,8 +30,8 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        /// <param name="parameters">The additional parameters.</param>
-        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        /// <param name="parameters">The logging parameters.</param>
+        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
@@ -46,8 +46,8 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        /// <param name="parameters">The additional parameters.</param>
-        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        /// <param name="parameters">The logging parameters.</param>
+        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
