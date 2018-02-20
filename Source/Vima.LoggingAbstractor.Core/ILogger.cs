@@ -19,16 +19,16 @@ namespace Vima.LoggingAbstractor.Core
         /// Traces the message.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
-        /// <param name="loggingSeverityLevel">The logging severity level.</param>
-        void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel);
+        /// <param name="loggingLevel">The logging level.</param>
+        void TraceMessage(string message, LoggingLevel loggingLevel);
 
         /// <summary>
         /// Traces the message.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
-        /// <param name="loggingSeverityLevel">The logging severity level.</param>
+        /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The additional parameters.</param>
-        void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters);
+        void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters);
 
         /// <summary>
         /// Traces the exception.
@@ -40,15 +40,15 @@ namespace Vima.LoggingAbstractor.Core
         /// Traces the exception.
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
-        /// <param name="loggingSeverityLevel">The logging severity level.</param>
-        void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel);
+        /// <param name="loggingLevel">The logging level.</param>
+        void TraceException(Exception exception, LoggingLevel loggingLevel);
 
         /// <summary>
         /// Traces the exception.
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
-        /// <param name="loggingSeverityLevel">The logging severity level.</param>
+        /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The additional parameters.</param>
-        void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters);
+        void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters);
     }
 }
