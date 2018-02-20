@@ -12,6 +12,17 @@ namespace Vima.LoggingAbstractor.Core
     /// </summary>
     public abstract class LoggerBase : ILogger
     {
+        private readonly LoggingSeverityLevel _minimalLoggingLevel;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoggerBase"/> class.
+        /// </summary>
+        /// <param name="minimalLoggingLevel">The minimal logging level.</param>
+        protected LoggerBase(LoggingSeverityLevel minimalLoggingLevel)
+        {
+            _minimalLoggingLevel = minimalLoggingLevel;
+        }
+
         /// <summary>
         /// Traces the message.
         /// </summary>
@@ -73,5 +84,20 @@ namespace Vima.LoggingAbstractor.Core
         /// <param name="loggingSeverityLevel">The logging severity level.</param>
         /// <param name="parameters">The additional parameters.</param>
         public abstract void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters);
+
+        /// <summary>
+        /// Determines whether tracing should be performed.
+        /// </summary>
+        /// <param name="loggingSeverityLevel">The logging severity level.</param>
+        /// <returns>Value indicating whether tracing should be performed</returns>
+        protected bool ShouldBeTraced(LoggingSeverityLevel loggingSeverityLevel)
+        {
+            if (loggingSeverityLevel == LoggingSeverityLevel.None)
+            {
+                return false;
+            }
+
+            return loggingSeverityLevel >= _minimalLoggingLevel;
+        }
     }
 }
