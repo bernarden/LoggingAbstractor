@@ -18,12 +18,12 @@ namespace Vima.LoggingAbstractor.Sentry
         /// Initializes a new instance of the <see cref="SentryLogger"/> class.
         /// </summary>
         /// <param name="ravenClient">The raven client.</param>
-        public SentryLogger(RavenClient ravenClient)
+        /// <param name="minimalLoggingLevel">The minimal logging level.</param>
+        public SentryLogger(RavenClient ravenClient, LoggingSeverityLevel minimalLoggingLevel = LoggingSeverityLevel.Verbose)
+            : base(minimalLoggingLevel)
         {
             _ravenClient = ravenClient ?? throw new ArgumentNullException(nameof(ravenClient));
         }
-
-        private static LoggingSeverityLevel MinimalLoggingLevel => LoggingSeverityLevel.Verbose;
 
         /// <summary>
         /// Traces the message.
@@ -33,7 +33,7 @@ namespace Vima.LoggingAbstractor.Sentry
         /// <param name="parameters">The additional parameters.</param>
         public override void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
-            if (loggingSeverityLevel < MinimalLoggingLevel)
+            if (!ShouldBeTraced(loggingSeverityLevel))
             {
                 return;
             }
@@ -49,7 +49,7 @@ namespace Vima.LoggingAbstractor.Sentry
         /// <param name="parameters">The additional parameters.</param>
         public override void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
-            if (loggingSeverityLevel < MinimalLoggingLevel)
+            if (!ShouldBeTraced(loggingSeverityLevel))
             {
                 return;
             }

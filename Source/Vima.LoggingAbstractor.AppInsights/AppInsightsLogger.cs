@@ -18,12 +18,12 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// Initializes a new instance of the <see cref="AppInsightsLogger"/> class.
         /// </summary>
         /// <param name="telemetryClient">The Application Insights client.</param>
-        public AppInsightsLogger(TelemetryClient telemetryClient)
+        /// <param name="minimalLoggingLevel">The minimal logging level.</param>
+        public AppInsightsLogger(TelemetryClient telemetryClient, LoggingSeverityLevel minimalLoggingLevel = LoggingSeverityLevel.Verbose)
+            : base(minimalLoggingLevel)
         {
             _telemetryClient = telemetryClient ?? throw new ArgumentNullException(nameof(telemetryClient));
         }
-
-        private static LoggingSeverityLevel MinimalLoggingLevel => LoggingSeverityLevel.Verbose;
 
         /// <summary>
         /// Traces the message.
@@ -33,7 +33,7 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <param name="parameters">The additional parameters.</param>
         public override void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
-            if (loggingSeverityLevel < MinimalLoggingLevel)
+            if (!ShouldBeTraced(loggingSeverityLevel))
             {
                 return;
             }
@@ -49,7 +49,7 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <param name="parameters">The additional parameters.</param>
         public override void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
-            if (loggingSeverityLevel < MinimalLoggingLevel)
+            if (!ShouldBeTraced(loggingSeverityLevel))
             {
                 return;
             }
