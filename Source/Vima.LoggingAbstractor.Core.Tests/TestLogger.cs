@@ -6,22 +6,22 @@ namespace Vima.LoggingAbstractor.Core.Tests
 {
     public class TestLogger : LoggerBase
     {
-        public TestLogger(LoggingSeverityLevel minimalLoggingLevel = LoggingSeverityLevel.Verbose)
+        public TestLogger(LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
             : base(minimalLoggingLevel)
         {
         }
 
-        public override void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
         }
 
-        public override void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
         }
 
-        public new bool ShouldBeTraced(LoggingSeverityLevel loggingSeverityLevel)
+        public new bool ShouldBeTraced(LoggingLevel loggingLevel)
         {
-            return base.ShouldBeTraced(loggingSeverityLevel);
+            return base.ShouldBeTraced(loggingLevel);
         }
     }
 }

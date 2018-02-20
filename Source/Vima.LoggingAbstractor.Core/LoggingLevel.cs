@@ -6,7 +6,7 @@ namespace Vima.LoggingAbstractor.Core
     /// Represents the severity of the logged message or exception.
     /// </summary>
     [Flags]
-    public enum LoggingSeverityLevel
+    public enum LoggingLevel
     {
         /// <summary>
         /// Verbose.
