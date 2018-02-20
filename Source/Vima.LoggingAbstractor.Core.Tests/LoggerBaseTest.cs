@@ -13,40 +13,39 @@ namespace Vima.LoggingAbstractor.Core.Tests
             [Fact]
             public void ShouldReturnCorrectValueInAllCombinationsOfInputs()
             {
-                var minimumLoggingSeverityLevels = Enum.GetValues(typeof(LoggingSeverityLevel)).Cast<LoggingSeverityLevel>().ToList();
-                var currentLoggingSeverityLevels = Enum.GetValues(typeof(LoggingSeverityLevel)).Cast<LoggingSeverityLevel>().ToList();
+                var loggingLevels = Enum.GetValues(typeof(LoggingLevel)).Cast<LoggingLevel>().ToList();
 
-                foreach (var minimumLoggingSeverityLevel in minimumLoggingSeverityLevels)
+                foreach (var minimalLoggingLevel in loggingLevels)
                 {
-                    foreach (var currentLoggingSeverityLevel in currentLoggingSeverityLevels)
+                    foreach (var currentLoggingLevel in loggingLevels)
                     {
                         // Arrange
-                        TestLogger logger = new TestLogger(minimumLoggingSeverityLevel);
-                        var expectedResult = ShouldClientLogTrace(minimumLoggingSeverityLevel, currentLoggingSeverityLevel);
+                        TestLogger logger = new TestLogger(minimalLoggingLevel);
+                        var expectedResult = ShouldClientLogTrace(minimalLoggingLevel, currentLoggingLevel);
 
                         // Act
-                        var result = logger.ShouldBeTraced(currentLoggingSeverityLevel);
+                        var result = logger.ShouldBeTraced(currentLoggingLevel);
 
                         // Assert
-                        result.Should().Be(expectedResult, $"current logging level is '{currentLoggingSeverityLevel:G}' and minimal logging level is '{minimumLoggingSeverityLevel.ToString()}'");
+                        result.Should().Be(expectedResult, $"current logging level is '{currentLoggingLevel:G}' and minimal logging level is '{minimalLoggingLevel.ToString()}'");
                     }
                 }
             }
 
-            private static bool ShouldClientLogTrace(LoggingSeverityLevel currentLoggingSeverityLevel, LoggingSeverityLevel minimumLoggingSeverityLevel)
+            private static bool ShouldClientLogTrace(LoggingLevel currentLoggingLevel, LoggingLevel minimumLoggingLevel)
             {
-                Dictionary<LoggingSeverityLevel, List<LoggingSeverityLevel>> allowedLoggingLevelsForMinimumLoggingLevel =
-                    new Dictionary<LoggingSeverityLevel, List<LoggingSeverityLevel>>
+                Dictionary<LoggingLevel, List<LoggingLevel>> allowedLoggingLevelsForMinimumLoggingLevel =
+                    new Dictionary<LoggingLevel, List<LoggingLevel>>
                     {
-                    { LoggingSeverityLevel.Verbose, new List<LoggingSeverityLevel> { LoggingSeverityLevel.Verbose } },
-                    { LoggingSeverityLevel.Information, new List<LoggingSeverityLevel> { LoggingSeverityLevel.Verbose, LoggingSeverityLevel.Information } },
-                    { LoggingSeverityLevel.Warning, new List<LoggingSeverityLevel> { LoggingSeverityLevel.Verbose, LoggingSeverityLevel.Information, LoggingSeverityLevel.Warning } },
-                    { LoggingSeverityLevel.Error, new List<LoggingSeverityLevel> { LoggingSeverityLevel.Verbose, LoggingSeverityLevel.Information, LoggingSeverityLevel.Warning, LoggingSeverityLevel.Error } },
-                    { LoggingSeverityLevel.Critical, new List<LoggingSeverityLevel> { LoggingSeverityLevel.Verbose, LoggingSeverityLevel.Information, LoggingSeverityLevel.Warning, LoggingSeverityLevel.Error, LoggingSeverityLevel.Critical } },
-                    { LoggingSeverityLevel.None, new List<LoggingSeverityLevel>() }
+                    { LoggingLevel.Verbose, new List<LoggingLevel> { LoggingLevel.Verbose } },
+                    { LoggingLevel.Information, new List<LoggingLevel> { LoggingLevel.Verbose, LoggingLevel.Information } },
+                    { LoggingLevel.Warning, new List<LoggingLevel> { LoggingLevel.Verbose, LoggingLevel.Information, LoggingLevel.Warning } },
+                    { LoggingLevel.Error, new List<LoggingLevel> { LoggingLevel.Verbose, LoggingLevel.Information, LoggingLevel.Warning, LoggingLevel.Error } },
+                    { LoggingLevel.Critical, new List<LoggingLevel> { LoggingLevel.Verbose, LoggingLevel.Information, LoggingLevel.Warning, LoggingLevel.Error, LoggingLevel.Critical } },
+                    { LoggingLevel.None, new List<LoggingLevel>() }
                     };
 
-                return allowedLoggingLevelsForMinimumLoggingLevel[minimumLoggingSeverityLevel].Contains(currentLoggingSeverityLevel);
+                return allowedLoggingLevelsForMinimumLoggingLevel[minimumLoggingLevel].Contains(currentLoggingLevel);
             }
         }
     }

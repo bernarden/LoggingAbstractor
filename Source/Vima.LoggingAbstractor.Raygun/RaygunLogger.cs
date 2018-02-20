@@ -18,7 +18,7 @@ namespace Vima.LoggingAbstractor.Raygun
         /// </summary>
         /// <param name="raygunClient">The raygun client.</param>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
-        public RaygunLogger(RaygunClient raygunClient, LoggingSeverityLevel minimalLoggingLevel = LoggingSeverityLevel.Verbose)
+        public RaygunLogger(RaygunClient raygunClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
             : base(minimalLoggingLevel)
         {
             _raygunClient = raygunClient ?? throw new ArgumentNullException(nameof(raygunClient));
@@ -28,11 +28,11 @@ namespace Vima.LoggingAbstractor.Raygun
         /// Traces the message.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
-        /// <param name="loggingSeverityLevel">The logging severity level.</param>
+        /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The additional parameters.</param>
-        public override void TraceMessage(string message, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
-            if (!ShouldBeTraced(loggingSeverityLevel))
+            if (!ShouldBeTraced(loggingLevel))
             {
                 return;
             }
@@ -45,11 +45,11 @@ namespace Vima.LoggingAbstractor.Raygun
         /// Traces the exception.
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
-        /// <param name="loggingSeverityLevel">The logging severity level.</param>
+        /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The additional parameters.</param>
-        public override void TraceException(Exception exception, LoggingSeverityLevel loggingSeverityLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
+        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters)
         {
-            if (!ShouldBeTraced(loggingSeverityLevel))
+            if (!ShouldBeTraced(loggingLevel))
             {
                 return;
             }
