@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-#if !NET20
 using System.Linq;
-#endif
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Core
@@ -39,11 +37,7 @@ namespace Vima.LoggingAbstractor.Core
         /// <param name="loggingLevel">The logging level.</param>
         public virtual void TraceMessage(string message, LoggingLevel loggingLevel)
         {
-#if NET20
-            TraceMessage(message, loggingLevel, new List<ILoggingAdditionalParameter>());
-#else
-            TraceMessage(message, loggingLevel, Enumerable.Empty<ILoggingAdditionalParameter>());
-#endif
+            TraceMessage(message, loggingLevel, Enumerable.Empty<ILoggingParameter>());
         }
 
         /// <summary>
@@ -51,8 +45,8 @@ namespace Vima.LoggingAbstractor.Core
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        /// <param name="parameters">The additional parameters.</param>
-        public abstract void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters);
+        /// <param name="parameters">The logging parameters.</param>
+        public abstract void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters);
 
         /// <summary>
         /// Traces the exception.
@@ -70,11 +64,7 @@ namespace Vima.LoggingAbstractor.Core
         /// <param name="loggingLevel">The logging level.</param>
         public virtual void TraceException(Exception exception, LoggingLevel loggingLevel)
         {
-#if NET20
-            TraceException(exception, loggingLevel,  new List<ILoggingAdditionalParameter>());
-#else
-            TraceException(exception, loggingLevel, Enumerable.Empty<ILoggingAdditionalParameter>());
-#endif
+            TraceException(exception, loggingLevel, Enumerable.Empty<ILoggingParameter>());
         }
 
         /// <summary>
@@ -82,8 +72,8 @@ namespace Vima.LoggingAbstractor.Core
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        /// <param name="parameters">The additional parameters.</param>
-        public abstract void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingAdditionalParameter> parameters);
+        /// <param name="parameters">The logging parameters.</param>
+        public abstract void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters);
 
         /// <summary>
         /// Determines whether tracing should be performed.
