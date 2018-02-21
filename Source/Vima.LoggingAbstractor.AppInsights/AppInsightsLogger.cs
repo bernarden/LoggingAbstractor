@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Vima.LoggingAbstractor.Core;
+using Vima.LoggingAbstractor.Core.Extensions;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.AppInsights
@@ -38,7 +39,9 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
-            _telemetryClient.Track(new TraceTelemetry(message));
+            var traceTelemetry = new TraceTelemetry(message);
+            AddTagsToProperties(traceTelemetry, parameters);
+            _telemetryClient.Track(traceTelemetry);
         }
 
         /// <summary>
@@ -54,7 +57,17 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
-            _telemetryClient.Track(new ExceptionTelemetry(exception));
+            var exceptionTelemetry = new ExceptionTelemetry(exception);
+            AddTagsToProperties(exceptionTelemetry, parameters);
+            _telemetryClient.Track(exceptionTelemetry);
+        }
+
+        private static void AddTagsToProperties(ISupportProperties telemetry, IEnumerable<ILoggingParameter> parameters)
+        {
+            foreach (string tag in parameters.ExtractTags())
+            {
+                telemetry.Properties.Add(tag, tag);
+            }
         }
     }
 }
