@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using SharpRaven;
 using SharpRaven.Data;
 using Vima.LoggingAbstractor.Core;
+using Vima.LoggingAbstractor.Core.Extensions;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Sentry
@@ -38,7 +40,8 @@ namespace Vima.LoggingAbstractor.Sentry
                 return;
             }
 
-            _ravenClient.Capture(new SentryEvent(message));
+            Dictionary<string, string> tags = GenerateTags(parameters);
+            _ravenClient.Capture(new SentryEvent(message) { Tags = tags });
         }
 
         /// <summary>
@@ -54,7 +57,13 @@ namespace Vima.LoggingAbstractor.Sentry
                 return;
             }
 
-            _ravenClient.Capture(new SentryEvent(exception));
+            Dictionary<string, string> tags = GenerateTags(parameters);
+            _ravenClient.Capture(new SentryEvent(exception) { Tags = tags });
+        }
+
+        private static Dictionary<string, string> GenerateTags(IEnumerable<ILoggingParameter> parameters)
+        {
+            return parameters.ExtractTags().ToDictionary(tag => tag);
         }
     }
 }
