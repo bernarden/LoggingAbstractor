@@ -8,6 +8,11 @@
         /// <summary>
         /// The tags parameter.
         /// </summary>
-        Tags
+        Tags,
+
+        /// <summary>
+        /// The data parameter
+        /// </summary>
+        Data
     }
 }
