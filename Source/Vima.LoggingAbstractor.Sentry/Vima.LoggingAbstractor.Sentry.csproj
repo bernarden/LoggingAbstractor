@@ -15,42 +15,27 @@
     <Company>Vima</Company>
     <NeutralLanguage>en-US</NeutralLanguage>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Product>LoggingAbstractor.Core</Product>
-    <PackageId>LoggingAbstractor.Core</PackageId>
+    <Product>LoggingAbstractor.Sentry</Product>
+    <PackageId>LoggingAbstractor.Sentry</PackageId>
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net47;net46;net45;net40;net35;netstandard1.0;netstandard2.0</TargetFrameworks>
-    <AssemblyName>Vima.LoggingAbstractor.Core</AssemblyName>
-    <RootNamespace>Vima.LoggingAbstractor.Core</RootNamespace>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Core.xml</DocumentationFile>
+    <TargetFrameworks>net47;net46;net45;net40;net35;netstandard2.0</TargetFrameworks>
+    <AssemblyName>Vima.LoggingAbstractor.Sentry</AssemblyName>
+    <RootNamespace>Vima.LoggingAbstractor.Sentry</RootNamespace>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Sentry.xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\ca.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+    <PackageReference Include="SharpRaven" Version="2.3.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net46'">
-    <DefineConstants>NET46</DefineConstants>
-  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vima.LoggingAbstractor.Core\Vima.LoggingAbstractor.Core.csproj" />
+  </ItemGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
-    <DefineConstants>NET45</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net35'">
-    <DefineConstants>NET35</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.0'">
-    <DefineConstants>NETSTANDARD1_0</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <DefineConstants>NETSTANDARD2_0</DefineConstants>
-  </PropertyGroup>
 </Project>
