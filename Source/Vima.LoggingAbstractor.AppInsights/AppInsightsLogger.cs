@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Vima.LoggingAbstractor.Core;
@@ -11,7 +12,7 @@ namespace Vima.LoggingAbstractor.AppInsights
     /// <summary>
     /// Represents an instance of an Application Insights logger.
     /// </summary>
-    public class AppInsightsLogger : LoggerBase
+    public class AppInsightsLogger : LoggerBase, IAppInsightsLogger
     {
         private readonly TelemetryClient _telemetryClient;
 
@@ -40,7 +41,7 @@ namespace Vima.LoggingAbstractor.AppInsights
             }
 
             var traceTelemetry = new TraceTelemetry(message);
-            AddTagsToProperties(traceTelemetry, parameters);
+            AddParametersToProperties(traceTelemetry, parameters);
             _telemetryClient.Track(traceTelemetry);
         }
 
@@ -58,15 +59,23 @@ namespace Vima.LoggingAbstractor.AppInsights
             }
 
             var exceptionTelemetry = new ExceptionTelemetry(exception);
-            AddTagsToProperties(exceptionTelemetry, parameters);
+            AddParametersToProperties(exceptionTelemetry, parameters);
             _telemetryClient.Track(exceptionTelemetry);
         }
 
-        private static void AddTagsToProperties(ISupportProperties telemetry, IEnumerable<ILoggingParameter> parameters)
+        private static void AddParametersToProperties(ISupportProperties telemetry, IEnumerable<ILoggingParameter> parameters)
         {
-            foreach (string tag in parameters.ExtractTags())
+            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+
+            foreach (string tag in loggingParameters.ExtractTags())
             {
                 telemetry.Properties.Add(tag, tag);
+            }
+
+            var dataCount = 0;
+            foreach (string data in loggingParameters.ExtractData())
+            {
+                telemetry.Properties.Add($"Data #{dataCount++}", data);
             }
         }
     }
