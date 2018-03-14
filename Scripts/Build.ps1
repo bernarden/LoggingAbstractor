@@ -25,11 +25,15 @@ properties {
     @{"Framework" = "net45"; "TestingFramework" = "net-4.5"; "Utility" = "NUnit";},
     @{"Framework" = "net451"; "TestingFramework" = "net-4.0"; "Utility" = "NUnit";},
     @{"Framework" = "net452"; "TestingFramework" = "net-4.5"; "Utility" = "NUnit";},   
-    @{"Framework" = "net46"; "TestingFramework" = "net46"; "Utility" = "DotnetTest";}
+    @{"Framework" = "net46"; "TestingFramework" = "net46"; "Utility" = "DotnetTest";},
+    @{"Framework" = "net47"; "TestingFramework" = "net47"; "Utility" = "DotnetTest";}
     )
 
   $ProjectsToPublish=@(
-      "$SourceDirectory\Vima.LoggingAbstractor.Core\Vima.LoggingAbstractor.Core.csproj"
+      "$SourceDirectory\Vima.LoggingAbstractor.Core\Vima.LoggingAbstractor.Core.csproj",
+      "$SourceDirectory\Vima.LoggingAbstractor.AppInsights\Vima.LoggingAbstractor.AppInsights.csproj",
+      "$SourceDirectory\Vima.LoggingAbstractor.Raygun\Vima.LoggingAbstractor.Raygun.csproj",
+      "$SourceDirectory\Vima.LoggingAbstractor.Sentry\Vima.LoggingAbstractor.Sentry.csproj"
     )
 }
 

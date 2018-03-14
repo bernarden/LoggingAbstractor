@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AssemblyName>Vima.LoggingAbstractor.AppInsights.Tests</AssemblyName>
+    <RootNamespace>Vima.LoggingAbstractor.AppInsights.Tests</RootNamespace>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.AppInsights.Tests.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>..\ca-tests.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.1.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.5.1" />
+    <PackageReference Include="Moq" Version="4.8.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vima.LoggingAbstractor.AppInsights\Vima.LoggingAbstractor.AppInsights.csproj" />
+  </ItemGroup>
+</Project>
