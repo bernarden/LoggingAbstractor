@@ -12,7 +12,7 @@ namespace Vima.LoggingAbstractor.Sentry
     /// <summary>
     /// Represents an instance of a Sentry logger.
     /// </summary>
-    public class SentryLogger : LoggerBase
+    public class SentryLogger : LoggerBase, ISentryLogger
     {
         private readonly RavenClient _ravenClient;
 
@@ -40,8 +40,9 @@ namespace Vima.LoggingAbstractor.Sentry
                 return;
             }
 
-            Dictionary<string, string> tags = GenerateTags(parameters);
-            _ravenClient.Capture(new SentryEvent(message) { Tags = tags });
+            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+            Dictionary<string, string> tags = GenerateTags(loggingParameters);
+            _ravenClient.Capture(new SentryEvent(message) { Tags = tags, Extra = loggingParameters.ExtractData() });
         }
 
         /// <summary>
@@ -57,8 +58,9 @@ namespace Vima.LoggingAbstractor.Sentry
                 return;
             }
 
-            Dictionary<string, string> tags = GenerateTags(parameters);
-            _ravenClient.Capture(new SentryEvent(exception) { Tags = tags });
+            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+            Dictionary<string, string> tags = GenerateTags(loggingParameters);
+            _ravenClient.Capture(new SentryEvent(exception) { Tags = tags, Extra = loggingParameters.ExtractData() });
         }
 
         private static Dictionary<string, string> GenerateTags(IEnumerable<ILoggingParameter> parameters)

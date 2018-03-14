@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Core.Extensions
@@ -13,7 +14,7 @@ namespace Vima.LoggingAbstractor.Core.Extensions
         /// Extracts the tags.
         /// </summary>
         /// <param name="parameters">The logging parameters.</param>
-        /// <returns>Tags</returns>
+        /// <returns>Tag values</returns>
         public static IEnumerable<string> ExtractTags(this IEnumerable<ILoggingParameter> parameters)
         {
             List<ILoggingParameter> loggingParameters = parameters
@@ -35,6 +36,35 @@ namespace Vima.LoggingAbstractor.Core.Extensions
             }
 
             return result.Distinct();
+        }
+
+        /// <summary>
+        /// Extracts the data values.
+        /// </summary>
+        /// <param name="parameters">The logging parameters.</param>
+        /// <returns>Data values</returns>
+        public static IEnumerable<string> ExtractData(this IEnumerable<ILoggingParameter> parameters)
+        {
+            List<ILoggingParameter> loggingParameters = parameters
+                .Where(x => x.LoggingParameterType == LoggingParameterType.Data)
+                .ToList();
+
+            if (!loggingParameters.Any())
+            {
+                return new List<string>();
+            }
+
+            List<string> result = new List<string>();
+            foreach (var loggingParameter in loggingParameters)
+            {
+                if (loggingParameter is ILoggingParameter<object> data)
+                {
+                    string value = JsonConvert.SerializeObject(data.Value);
+                    result.Add(value);
+                }
+            }
+
+            return result;
         }
     }
 }

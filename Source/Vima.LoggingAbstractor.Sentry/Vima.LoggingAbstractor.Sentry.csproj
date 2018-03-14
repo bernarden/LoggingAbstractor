@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net47;net46;net45;net40;net35</TargetFrameworks>
+    <TargetFrameworks>net47;net46;net45;net40;net35;netstandard2.0</TargetFrameworks>
     <AssemblyName>Vima.LoggingAbstractor.Sentry</AssemblyName>
     <RootNamespace>Vima.LoggingAbstractor.Sentry</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Sentry.xml</DocumentationFile>
@@ -30,7 +30,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpRaven" Version="2.2.0" />
+    <PackageReference Include="SharpRaven" Version="2.3.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
   </ItemGroup>
 

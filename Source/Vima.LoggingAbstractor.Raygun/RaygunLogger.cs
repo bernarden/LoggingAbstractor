@@ -11,7 +11,7 @@ namespace Vima.LoggingAbstractor.Raygun
     /// <summary>
     /// Represents an instance of a Raygun logger.
     /// </summary>
-    public class RaygunLogger : LoggerBase
+    public class RaygunLogger : LoggerBase, IRaygunLogger
     {
         private readonly RaygunClient _raygunClient;
 
@@ -39,8 +39,10 @@ namespace Vima.LoggingAbstractor.Raygun
                 return;
             }
 
+            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
             var messageException = new RaygunMessageException(message);
-            _raygunClient.Send(messageException, parameters.ExtractTags().ToList());
+            var data = ExtractDataValues(loggingParameters);
+            _raygunClient.Send(messageException, loggingParameters.ExtractTags().ToList(), data);
         }
 
         /// <summary>
@@ -56,7 +58,21 @@ namespace Vima.LoggingAbstractor.Raygun
                 return;
             }
 
-            _raygunClient.Send(exception, parameters.ExtractTags().ToList());
+            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+            var data = ExtractDataValues(loggingParameters);
+            _raygunClient.Send(exception, loggingParameters.ExtractTags().ToList(), data);
+        }
+
+        private Dictionary<string, string> ExtractDataValues(IEnumerable<ILoggingParameter> parameters)
+        {
+            var dataCount = 0;
+            var dataDictionary = new Dictionary<string, string>();
+            foreach (string data in parameters.ExtractData())
+            {
+                dataDictionary.Add($"Data #{dataCount++}", data);
+            }
+
+            return dataDictionary;
         }
     }
 }
