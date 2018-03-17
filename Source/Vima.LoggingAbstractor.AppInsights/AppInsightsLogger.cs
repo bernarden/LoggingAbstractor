@@ -12,6 +12,8 @@ namespace Vima.LoggingAbstractor.AppInsights
     /// <summary>
     /// Represents an instance of an Application Insights logger.
     /// </summary>
+    /// <seealso cref="Vima.LoggingAbstractor.Core.LoggerBase" />
+    /// <seealso cref="Vima.LoggingAbstractor.AppInsights.IAppInsightsLogger" />
     public class AppInsightsLogger : LoggerBase, IAppInsightsLogger
     {
         private readonly TelemetryClient _telemetryClient;

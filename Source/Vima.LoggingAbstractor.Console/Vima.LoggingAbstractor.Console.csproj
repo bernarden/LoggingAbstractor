@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>0.1.0</Version>
+    <FileVersion>0.1.0</FileVersion>
+    <Authors>Victor Usoltsev</Authors>
+    <Description>Logging Abstractor is a library for .NET that allows you to swap out logging providers with ease.</Description>
+    <Copyright>Copyright © Victor Usoltsev 2018</Copyright>
+    <PackageLicenseUrl>https://github.com/bernarden/LoggingAbstractor/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/bernarden/LoggingAbstractor/master/Resources/NugetIcon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/bernarden/LoggingAbstractor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>logging abstractor abstraction logger</PackageTags>
+    <PackageProjectUrl>https://github.com/bernarden/LoggingAbstractor</PackageProjectUrl>
+    <Company>Vima</Company>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Product>LoggingAbstractor.Console</Product>
+    <PackageId>LoggingAbstractor.Console</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>net47;net46;net45;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <AssemblyName>Vima.LoggingAbstractor.Console</AssemblyName>
+    <RootNamespace>Vima.LoggingAbstractor.Console</RootNamespace>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Console.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>..\ca.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vima.LoggingAbstractor.Core\Vima.LoggingAbstractor.Core.csproj" />
+  </ItemGroup>
+
+</Project>
