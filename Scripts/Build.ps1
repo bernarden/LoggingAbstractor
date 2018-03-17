@@ -33,7 +33,8 @@ properties {
       "$SourceDirectory\Vima.LoggingAbstractor.Core\Vima.LoggingAbstractor.Core.csproj",
       "$SourceDirectory\Vima.LoggingAbstractor.AppInsights\Vima.LoggingAbstractor.AppInsights.csproj",
       "$SourceDirectory\Vima.LoggingAbstractor.Raygun\Vima.LoggingAbstractor.Raygun.csproj",
-      "$SourceDirectory\Vima.LoggingAbstractor.Sentry\Vima.LoggingAbstractor.Sentry.csproj"
+      "$SourceDirectory\Vima.LoggingAbstractor.Sentry\Vima.LoggingAbstractor.Sentry.csproj",
+      "$SourceDirectory\Vima.LoggingAbstractor.Console\Vima.LoggingAbstractor.Console.csproj"
     )
 }
 

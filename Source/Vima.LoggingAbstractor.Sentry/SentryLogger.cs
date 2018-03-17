@@ -12,6 +12,8 @@ namespace Vima.LoggingAbstractor.Sentry
     /// <summary>
     /// Represents an instance of a Sentry logger.
     /// </summary>
+    /// <seealso cref="Vima.LoggingAbstractor.Core.LoggerBase" />
+    /// <seealso cref="Vima.LoggingAbstractor.Sentry.ISentryLogger" />
     public class SentryLogger : LoggerBase, ISentryLogger
     {
         private readonly RavenClient _ravenClient;
