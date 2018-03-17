@@ -16,7 +16,7 @@ namespace Vima.LoggingAbstractor.Core
         /// Initializes a new instance of the <see cref="MultiLogger"/> class.
         /// </summary>
         /// <param name="loggers">The loggers used to trace events.</param>
-        protected MultiLogger(IEnumerable<ILogger> loggers)
+        public MultiLogger(IEnumerable<ILogger> loggers)
         {
             _loggers = loggers ?? throw new ArgumentNullException(nameof(loggers));
         }
