@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Vima.LoggingAbstractor.Core.Parameters;
 
-namespace Vima.LoggingAbstractor.Core
+namespace Vima.LoggingAbstractor.Core.MultiLogger
 {
     /// <summary>
     /// Responsible for combining multiple loggers at the same time.
     /// </summary>
+    /// <seealso cref="Vima.LoggingAbstractor.Core.MultiLogger.IMultiLogger" />
     public class MultiLogger : IMultiLogger
     {
         private readonly IEnumerable<ILogger> _loggers;

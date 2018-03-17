@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.Sent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.Core.Tests", "Vima.LoggingAbstractor.Core.Tests\Vima.LoggingAbstractor.Core.Tests.csproj", "{1FE06ABE-1840-48FC-B897-86467D804171}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vima.LoggingAbstractor.Console", "Vima.LoggingAbstractor.Console\Vima.LoggingAbstractor.Console.csproj", "{E7BB5BD5-1565-4186-856E-A985E2800E16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{1FE06ABE-1840-48FC-B897-86467D804171}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FE06ABE-1840-48FC-B897-86467D804171}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FE06ABE-1840-48FC-B897-86467D804171}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7BB5BD5-1565-4186-856E-A985E2800E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7BB5BD5-1565-4186-856E-A985E2800E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7BB5BD5-1565-4186-856E-A985E2800E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7BB5BD5-1565-4186-856E-A985E2800E16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{BE9E1277-540B-43AF-B2B0-39C4D54EB4C5} = {ECC3568E-2B5D-4CD9-90E3-8727BA55E179}
 		{B67216FC-D4EB-4E71-AF39-5A5C84C03505} = {ECC3568E-2B5D-4CD9-90E3-8727BA55E179}
 		{1FE06ABE-1840-48FC-B897-86467D804171} = {ECC3568E-2B5D-4CD9-90E3-8727BA55E179}
+		{E7BB5BD5-1565-4186-856E-A985E2800E16} = {9F33D991-BD90-406B-9A62-4D1C7D184368}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {81C432BA-8657-42A6-BC44-C0D267D70BF8}
