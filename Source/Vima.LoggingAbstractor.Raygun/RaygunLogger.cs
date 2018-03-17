@@ -11,6 +11,8 @@ namespace Vima.LoggingAbstractor.Raygun
     /// <summary>
     /// Represents an instance of a Raygun logger.
     /// </summary>
+    /// <seealso cref="Vima.LoggingAbstractor.Core.LoggerBase" />
+    /// <seealso cref="Vima.LoggingAbstractor.Raygun.IRaygunLogger" />
     public class RaygunLogger : LoggerBase, IRaygunLogger
     {
         private readonly RaygunClient _raygunClient;
