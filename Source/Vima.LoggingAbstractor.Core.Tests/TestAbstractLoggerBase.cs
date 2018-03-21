@@ -4,9 +4,9 @@ using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Core.Tests
 {
-    public class TestLoggerBase : LoggerBase
+    public class TestAbstractLoggerBase : AbstractLoggerBase
     {
-        public TestLoggerBase(LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
+        public TestAbstractLoggerBase(LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
             : base(minimalLoggingLevel)
         {
         }
