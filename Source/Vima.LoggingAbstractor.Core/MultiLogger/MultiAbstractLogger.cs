@@ -8,16 +8,16 @@ namespace Vima.LoggingAbstractor.Core.MultiLogger
     /// <summary>
     /// Responsible for combining multiple loggers at the same time.
     /// </summary>
-    /// <seealso cref="Vima.LoggingAbstractor.Core.MultiLogger.IMultiLogger" />
-    public class MultiLogger : IMultiLogger
+    /// <seealso cref="IMultiAbstractLogger" />
+    public class MultiAbstractLogger : IMultiAbstractLogger
     {
-        private readonly IEnumerable<ILogger> _loggers;
+        private readonly IEnumerable<IAbstractLogger> _loggers;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MultiLogger"/> class.
+        /// Initializes a new instance of the <see cref="MultiAbstractLogger"/> class.
         /// </summary>
         /// <param name="loggers">The loggers used to trace events.</param>
-        public MultiLogger(IEnumerable<ILogger> loggers)
+        public MultiAbstractLogger(IEnumerable<IAbstractLogger> loggers)
         {
             _loggers = loggers ?? throw new ArgumentNullException(nameof(loggers));
         }
