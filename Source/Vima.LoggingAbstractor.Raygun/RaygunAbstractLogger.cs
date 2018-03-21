@@ -1,32 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SharpRaven;
-using SharpRaven.Data;
+using Mindscape.Raygun4Net;
 using Vima.LoggingAbstractor.Core;
 using Vima.LoggingAbstractor.Core.Extensions;
 using Vima.LoggingAbstractor.Core.Parameters;
 
-namespace Vima.LoggingAbstractor.Sentry
+namespace Vima.LoggingAbstractor.Raygun
 {
     /// <summary>
-    /// Represents an instance of a Sentry logger.
+    /// Represents an instance of a Raygun logger.
     /// </summary>
-    /// <seealso cref="Vima.LoggingAbstractor.Core.LoggerBase" />
-    /// <seealso cref="Vima.LoggingAbstractor.Sentry.ISentryLogger" />
-    public class SentryLogger : LoggerBase, ISentryLogger
+    /// <seealso cref="AbstractLoggerBase" />
+    /// <seealso cref="IRaygunAbstractLogger" />
+    public class RaygunAbstractLogger : AbstractLoggerBase, IRaygunAbstractLogger
     {
-        private readonly RavenClient _ravenClient;
+        private readonly RaygunClient _raygunClient;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SentryLogger"/> class.
+        /// Initializes a new instance of the <see cref="RaygunAbstractLogger"/> class.
         /// </summary>
-        /// <param name="ravenClient">The raven client.</param>
+        /// <param name="raygunClient">The raygun client.</param>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
-        public SentryLogger(RavenClient ravenClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
+        public RaygunAbstractLogger(RaygunClient raygunClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
             : base(minimalLoggingLevel)
         {
-            _ravenClient = ravenClient ?? throw new ArgumentNullException(nameof(ravenClient));
+            _raygunClient = raygunClient ?? throw new ArgumentNullException(nameof(raygunClient));
         }
 
         /// <summary>
@@ -43,8 +42,9 @@ namespace Vima.LoggingAbstractor.Sentry
             }
 
             IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
-            Dictionary<string, string> tags = GenerateTags(loggingParameters);
-            _ravenClient.Capture(new SentryEvent(message) { Tags = tags, Extra = loggingParameters.ExtractData() });
+            var messageException = new RaygunMessageException(message);
+            var data = ExtractDataValues(loggingParameters);
+            _raygunClient.Send(messageException, loggingParameters.ExtractTags().ToList(), data);
         }
 
         /// <summary>
@@ -61,13 +61,20 @@ namespace Vima.LoggingAbstractor.Sentry
             }
 
             IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
-            Dictionary<string, string> tags = GenerateTags(loggingParameters);
-            _ravenClient.Capture(new SentryEvent(exception) { Tags = tags, Extra = loggingParameters.ExtractData() });
+            var data = ExtractDataValues(loggingParameters);
+            _raygunClient.Send(exception, loggingParameters.ExtractTags().ToList(), data);
         }
 
-        private static Dictionary<string, string> GenerateTags(IEnumerable<ILoggingParameter> parameters)
+        private Dictionary<string, string> ExtractDataValues(IEnumerable<ILoggingParameter> parameters)
         {
-            return parameters.ExtractTags().ToDictionary(tag => tag);
+            var dataCount = 0;
+            var dataDictionary = new Dictionary<string, string>();
+            foreach (string data in parameters.ExtractData())
+            {
+                dataDictionary.Add($"Data #{dataCount++}", data);
+            }
+
+            return dataDictionary;
         }
     }
 }

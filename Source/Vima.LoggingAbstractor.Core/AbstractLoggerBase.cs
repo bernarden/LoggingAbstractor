@@ -8,15 +8,15 @@ namespace Vima.LoggingAbstractor.Core
     /// <summary>
     /// Represents an instance of a logger.
     /// </summary>
-    public abstract class LoggerBase : ILogger
+    public abstract class AbstractLoggerBase : IAbstractLogger
     {
         private readonly LoggingLevel _minimalLoggingLevel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoggerBase"/> class.
+        /// Initializes a new instance of the <see cref="AbstractLoggerBase"/> class.
         /// </summary>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
-        protected LoggerBase(LoggingLevel minimalLoggingLevel)
+        protected AbstractLoggerBase(LoggingLevel minimalLoggingLevel)
         {
             _minimalLoggingLevel = minimalLoggingLevel;
         }

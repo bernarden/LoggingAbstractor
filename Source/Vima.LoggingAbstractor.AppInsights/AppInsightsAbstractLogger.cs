@@ -12,18 +12,18 @@ namespace Vima.LoggingAbstractor.AppInsights
     /// <summary>
     /// Represents an instance of an Application Insights logger.
     /// </summary>
-    /// <seealso cref="Vima.LoggingAbstractor.Core.LoggerBase" />
-    /// <seealso cref="Vima.LoggingAbstractor.AppInsights.IAppInsightsLogger" />
-    public class AppInsightsLogger : LoggerBase, IAppInsightsLogger
+    /// <seealso cref="AbstractLoggerBase" />
+    /// <seealso cref="IAppInsightsAbstractLogger" />
+    public class AppInsightsAbstractLogger : AbstractLoggerBase, IAppInsightsAbstractLogger
     {
         private readonly TelemetryClient _telemetryClient;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppInsightsLogger"/> class.
+        /// Initializes a new instance of the <see cref="AppInsightsAbstractLogger"/> class.
         /// </summary>
         /// <param name="telemetryClient">The Application Insights client.</param>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
-        public AppInsightsLogger(TelemetryClient telemetryClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
+        public AppInsightsAbstractLogger(TelemetryClient telemetryClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
             : base(minimalLoggingLevel)
         {
             _telemetryClient = telemetryClient ?? throw new ArgumentNullException(nameof(telemetryClient));
