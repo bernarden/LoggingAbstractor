@@ -7,7 +7,7 @@ namespace Vima.LoggingAbstractor.Core
     /// <summary>
     /// Represents an instance of a logger.
     /// </summary>
-    public interface ILogger
+    public interface IAbstractLogger
     {
         /// <summary>
         /// Traces the message.

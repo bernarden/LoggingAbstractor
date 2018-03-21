@@ -8,14 +8,14 @@ namespace Vima.LoggingAbstractor.Console
     /// <summary>
     /// Represents an instance of a logger that logs everything to a console.
     /// </summary>
-    /// <seealso cref="Vima.LoggingAbstractor.Console.IConsoleLogger" />
-    public class ConsoleLogger : LoggerBase, IConsoleLogger
+    /// <seealso cref="IConsoleAbstractLogger" />
+    public class ConsoleAbstractLogger : AbstractLoggerBase, IConsoleAbstractLogger
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConsoleLogger"/> class.
+        /// Initializes a new instance of the <see cref="ConsoleAbstractLogger"/> class.
         /// </summary>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
-        public ConsoleLogger(LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
+        public ConsoleAbstractLogger(LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
             : base(minimalLoggingLevel)
         {
         }
