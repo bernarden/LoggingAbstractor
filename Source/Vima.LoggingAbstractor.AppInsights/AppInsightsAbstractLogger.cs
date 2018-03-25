@@ -42,7 +42,10 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
-            var traceTelemetry = new TraceTelemetry(message);
+            var traceTelemetry = new TraceTelemetry(message)
+            {
+                SeverityLevel = LoggingLevelMapper.ConvertLoggingLevelToSeverityLevel(loggingLevel)
+            };
             AddParametersToProperties(traceTelemetry, parameters);
             _telemetryClient.Track(traceTelemetry);
         }
@@ -60,7 +63,10 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
-            var exceptionTelemetry = new ExceptionTelemetry(exception);
+            var exceptionTelemetry = new ExceptionTelemetry(exception)
+            {
+                SeverityLevel = LoggingLevelMapper.ConvertLoggingLevelToSeverityLevel(loggingLevel)
+            };
             AddParametersToProperties(exceptionTelemetry, parameters);
             _telemetryClient.Track(exceptionTelemetry);
         }

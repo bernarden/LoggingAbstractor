@@ -44,7 +44,8 @@ namespace Vima.LoggingAbstractor.Raygun
             IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
             var messageException = new RaygunMessageException(message);
             var data = ExtractDataValues(loggingParameters);
-            _raygunClient.Send(messageException, loggingParameters.ExtractTags().ToList(), data);
+            var tags = ExtractTags(loggingParameters, loggingLevel);
+            _raygunClient.Send(messageException, tags, data);
         }
 
         /// <summary>
@@ -62,10 +63,18 @@ namespace Vima.LoggingAbstractor.Raygun
 
             IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
             var data = ExtractDataValues(loggingParameters);
-            _raygunClient.Send(exception, loggingParameters.ExtractTags().ToList(), data);
+            var tags = ExtractTags(loggingParameters, loggingLevel);
+            _raygunClient.Send(exception, tags, data);
         }
 
-        private Dictionary<string, string> ExtractDataValues(IEnumerable<ILoggingParameter> parameters)
+        private static List<string> ExtractTags(IEnumerable<ILoggingParameter> loggingParameters, LoggingLevel loggingLevel)
+        {
+            List<string> extractTags = loggingParameters.ExtractTags().ToList();
+            extractTags.Add(loggingLevel.ToString("G"));
+            return extractTags;
+        }
+
+        private static Dictionary<string, string> ExtractDataValues(IEnumerable<ILoggingParameter> parameters)
         {
             var dataCount = 0;
             var dataDictionary = new Dictionary<string, string>();
