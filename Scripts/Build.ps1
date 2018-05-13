@@ -12,7 +12,7 @@ properties {
   $NugetFileUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 
   $NugetPackages = @(
-    @{"Name" = "vswhere"; "Version" = "2.3.2"; "Alias" = "VSWhere"; "ExePath" = "tools/vswhere.exe"},
+    @{"Name" = "vswhere"; "Version" = "2.4.1"; "Alias" = "VSWhere"; "ExePath" = "tools/vswhere.exe"},
     @{"Name" = "NUnit.ConsoleRunner"; "Version" = "3.8.0"; "Alias" = "NUnitConsole"; "ExePath" = "tools/nunit3-console.exe" }
     )
 
