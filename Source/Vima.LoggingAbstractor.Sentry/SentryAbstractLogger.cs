@@ -53,7 +53,7 @@ namespace Vima.LoggingAbstractor.Sentry
                 return;
             }
 
-            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+            IEnumerable<ILoggingParameter> loggingParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
             Dictionary<string, string> tags = GenerateTags(loggingParameters);
             _ravenClient.Capture(new SentryEvent(message)
             {
@@ -76,7 +76,7 @@ namespace Vima.LoggingAbstractor.Sentry
                 return;
             }
 
-            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+            IEnumerable<ILoggingParameter> loggingParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
             Dictionary<string, string> tags = GenerateTags(loggingParameters);
             _ravenClient.Capture(new SentryEvent(exception)
             {
