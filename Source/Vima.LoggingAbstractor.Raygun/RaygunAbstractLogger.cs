@@ -52,7 +52,7 @@ namespace Vima.LoggingAbstractor.Raygun
                 return;
             }
 
-            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+            IEnumerable<ILoggingParameter> loggingParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
             var messageException = new RaygunMessageException(message);
             var data = ExtractDataValues(loggingParameters);
             var tags = ExtractTags(loggingParameters, loggingLevel);
@@ -72,7 +72,7 @@ namespace Vima.LoggingAbstractor.Raygun
                 return;
             }
 
-            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+            IEnumerable<ILoggingParameter> loggingParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
             var data = ExtractDataValues(loggingParameters);
             var tags = ExtractTags(loggingParameters, loggingLevel);
             _raygunClient.Send(exception, tags, data);

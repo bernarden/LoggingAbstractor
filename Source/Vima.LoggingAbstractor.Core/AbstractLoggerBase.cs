@@ -89,5 +89,16 @@ namespace Vima.LoggingAbstractor.Core
 
             return loggingLevel >= _settings.MinimalLoggingLevel;
         }
+
+        /// <summary>
+        /// Combines global and specified local parameters.
+        /// </summary>
+        /// <param name="localParameters">The logging parameters that are explicitly specified by the user on logging call.</param>
+        /// <returns>All parameters to be logged.</returns>
+        protected IEnumerable<ILoggingParameter> GetGlobalAndLocalLoggingParameters(IEnumerable<ILoggingParameter> localParameters)
+        {
+            var globalAndLocalParameters = localParameters.Concat(_settings.GlobalLoggingParameters);
+            return globalAndLocalParameters;
+        }
     }
 }
