@@ -24,7 +24,18 @@ namespace Vima.LoggingAbstractor.Sentry
         /// <param name="ravenClient">The raven client.</param>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
         public SentryAbstractLogger(RavenClient ravenClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
-            : base(minimalLoggingLevel)
+            : base(new AbstractLoggerSettings { MinimalLoggingLevel = minimalLoggingLevel })
+        {
+            _ravenClient = ravenClient ?? throw new ArgumentNullException(nameof(ravenClient));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SentryAbstractLogger"/> class.
+        /// </summary>
+        /// <param name="ravenClient">The raven client.</param>
+        /// <param name="settings">The logger's settings.</param>
+        public SentryAbstractLogger(RavenClient ravenClient, AbstractLoggerSettings settings)
+            : base(settings ?? throw new ArgumentNullException(nameof(settings)))
         {
             _ravenClient = ravenClient ?? throw new ArgumentNullException(nameof(ravenClient));
         }

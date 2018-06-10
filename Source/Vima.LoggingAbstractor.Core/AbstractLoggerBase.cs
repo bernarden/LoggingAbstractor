@@ -10,15 +10,15 @@ namespace Vima.LoggingAbstractor.Core
     /// </summary>
     public abstract class AbstractLoggerBase : IAbstractLogger
     {
-        private readonly LoggingLevel _minimalLoggingLevel;
+        private readonly AbstractLoggerSettings _settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbstractLoggerBase"/> class.
         /// </summary>
-        /// <param name="minimalLoggingLevel">The minimal logging level.</param>
-        protected AbstractLoggerBase(LoggingLevel minimalLoggingLevel)
+        /// <param name="settings">The logger's settings.</param>
+        protected AbstractLoggerBase(AbstractLoggerSettings settings)
         {
-            _minimalLoggingLevel = minimalLoggingLevel;
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Vima.LoggingAbstractor.Core
                 return false;
             }
 
-            return loggingLevel >= _minimalLoggingLevel;
+            return loggingLevel >= _settings.MinimalLoggingLevel;
         }
     }
 }

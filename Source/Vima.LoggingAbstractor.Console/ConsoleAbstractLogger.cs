@@ -16,7 +16,16 @@ namespace Vima.LoggingAbstractor.Console
         /// </summary>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
         public ConsoleAbstractLogger(LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
-            : base(minimalLoggingLevel)
+            : base(new AbstractLoggerSettings { MinimalLoggingLevel = minimalLoggingLevel })
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleAbstractLogger"/> class.
+        /// </summary>
+        /// <param name="settings">The logger's settings.</param>
+        public ConsoleAbstractLogger(AbstractLoggerSettings settings)
+            : base(settings ?? throw new ArgumentNullException(nameof(settings)))
         {
         }
 
