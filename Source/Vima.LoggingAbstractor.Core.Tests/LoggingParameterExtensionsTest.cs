@@ -12,14 +12,14 @@ namespace Vima.LoggingAbstractor.Core.Tests
     {
         public sealed class ExtractTags
         {
-            [Fact(Skip = "Need other logging parameters to exist.")]
+            [Fact]
             public void ShouldHandleNoParameters()
             {
                 // Arrange
-                // TODO: Create different logging parameter and add here for tests.
+                var loggingParameters = new List<ILoggingParameter> { new LoggingDataParameter(string.Empty) };
 
                 // Act
-                var tags = new List<ILoggingParameter> { }.ExtractTags().ToList();
+                var tags = loggingParameters.ExtractTags().ToList();
 
                 // Assert
                 tags.Should().BeEmpty();
