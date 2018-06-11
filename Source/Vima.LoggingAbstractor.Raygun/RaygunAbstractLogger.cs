@@ -20,10 +20,21 @@ namespace Vima.LoggingAbstractor.Raygun
         /// <summary>
         /// Initializes a new instance of the <see cref="RaygunAbstractLogger"/> class.
         /// </summary>
-        /// <param name="raygunClient">The raygun client.</param>
+        /// <param name="raygunClient">The Raygun client.</param>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
         public RaygunAbstractLogger(RaygunClient raygunClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
-            : base(minimalLoggingLevel)
+            : base(new AbstractLoggerSettings { MinimalLoggingLevel = minimalLoggingLevel })
+        {
+            _raygunClient = raygunClient ?? throw new ArgumentNullException(nameof(raygunClient));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RaygunAbstractLogger"/> class.
+        /// </summary>
+        /// <param name="raygunClient">The Raygun client.</param>
+        /// <param name="settings">The logger's settings.</param>
+        public RaygunAbstractLogger(RaygunClient raygunClient, AbstractLoggerSettings settings)
+            : base(settings ?? throw new ArgumentNullException(nameof(settings)))
         {
             _raygunClient = raygunClient ?? throw new ArgumentNullException(nameof(raygunClient));
         }
@@ -41,7 +52,7 @@ namespace Vima.LoggingAbstractor.Raygun
                 return;
             }
 
-            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+            IEnumerable<ILoggingParameter> loggingParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
             var messageException = new RaygunMessageException(message);
             var data = ExtractDataValues(loggingParameters);
             var tags = ExtractTags(loggingParameters, loggingLevel);
@@ -61,7 +72,7 @@ namespace Vima.LoggingAbstractor.Raygun
                 return;
             }
 
-            IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
+            IEnumerable<ILoggingParameter> loggingParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
             var data = ExtractDataValues(loggingParameters);
             var tags = ExtractTags(loggingParameters, loggingLevel);
             _raygunClient.Send(exception, tags, data);

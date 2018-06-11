@@ -7,7 +7,12 @@ namespace Vima.LoggingAbstractor.Core.Tests
     public class TestAbstractLoggerBase : AbstractLoggerBase
     {
         public TestAbstractLoggerBase(LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
-            : base(minimalLoggingLevel)
+            : base(new AbstractLoggerSettings { MinimalLoggingLevel = minimalLoggingLevel })
+        {
+        }
+
+        public TestAbstractLoggerBase(AbstractLoggerSettings settings)
+            : base(settings)
         {
         }
 
