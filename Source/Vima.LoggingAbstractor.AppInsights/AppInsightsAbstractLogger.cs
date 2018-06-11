@@ -24,7 +24,18 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <param name="telemetryClient">The Application Insights client.</param>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
         public AppInsightsAbstractLogger(TelemetryClient telemetryClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
-            : base(minimalLoggingLevel)
+            : base(new AbstractLoggerSettings { MinimalLoggingLevel = minimalLoggingLevel })
+        {
+            _telemetryClient = telemetryClient ?? throw new ArgumentNullException(nameof(telemetryClient));
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppInsightsAbstractLogger"/> class.
+        /// </summary>
+        /// <param name="telemetryClient">The Application Insights client.</param>
+        /// <param name="settings">The logger's settings.</param>
+        public AppInsightsAbstractLogger(TelemetryClient telemetryClient, AbstractLoggerSettings settings)
+            : base(settings ?? throw new ArgumentNullException(nameof(settings)))
         {
             _telemetryClient = telemetryClient ?? throw new ArgumentNullException(nameof(telemetryClient));
         }
@@ -42,11 +53,12 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
+            var allParameters = GetGlobalAndLocalLoggingParameters(parameters);
             var traceTelemetry = new TraceTelemetry(message)
             {
                 SeverityLevel = LoggingLevelMapper.ConvertLoggingLevelToSeverityLevel(loggingLevel)
             };
-            AddParametersToProperties(traceTelemetry, parameters);
+            AddParametersToProperties(traceTelemetry, allParameters);
             _telemetryClient.Track(traceTelemetry);
         }
 
@@ -63,11 +75,12 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
+            var allParameters = GetGlobalAndLocalLoggingParameters(parameters);
             var exceptionTelemetry = new ExceptionTelemetry(exception)
             {
                 SeverityLevel = LoggingLevelMapper.ConvertLoggingLevelToSeverityLevel(loggingLevel)
             };
-            AddParametersToProperties(exceptionTelemetry, parameters);
+            AddParametersToProperties(exceptionTelemetry, allParameters);
             _telemetryClient.Track(exceptionTelemetry);
         }
 
