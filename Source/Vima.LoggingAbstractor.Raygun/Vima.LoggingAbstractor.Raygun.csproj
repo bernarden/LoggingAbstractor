@@ -29,15 +29,8 @@
     <WarningsAsErrors />
   </PropertyGroup>
   
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.6'">
-    <PackageReference Include="Mindscape.Raygun4Net.AspNetCore" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="Mindscape.Raygun4Net.AspNetCore" Version="6.0.0" />
-  </ItemGroup>
-
   <ItemGroup>
+    <PackageReference Include="Mindscape.Raygun4Net.AspNetCore" Version="6.0.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
   </ItemGroup>
   
