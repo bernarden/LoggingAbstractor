@@ -29,11 +29,7 @@
     <WarningsAsErrors />
   </PropertyGroup>
   
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard1.6'">
-    <PackageReference Include="Mindscape.Raygun4Net.AspNetCore" Version="6.0.1" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+  <ItemGroup>
     <PackageReference Include="Mindscape.Raygun4Net.AspNetCore" Version="6.0.1" />
   </ItemGroup>
 
