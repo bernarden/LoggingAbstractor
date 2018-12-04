@@ -88,12 +88,13 @@ namespace Vima.LoggingAbstractor.AppInsights
         {
             IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
 
+            var tagCount = 1;
             foreach (string tag in loggingParameters.ExtractTags())
             {
-                telemetry.Properties.Add(tag, tag);
+                telemetry.Properties.Add($"Tag #{tagCount++}", tag);
             }
 
-            var dataCount = 0;
+            var dataCount = 1;
             foreach (string data in loggingParameters.ExtractData())
             {
                 telemetry.Properties.Add($"Data #{dataCount++}", data);
