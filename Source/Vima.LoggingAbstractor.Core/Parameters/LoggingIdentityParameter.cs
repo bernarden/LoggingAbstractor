@@ -23,6 +23,15 @@ namespace Vima.LoggingAbstractor.Core.Parameters
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="LoggingIdentityParameter"/> class.
+        /// </summary>
+        /// <param name="identityParameter">The identity parameter.</param>
+        public LoggingIdentityParameter(IdentityParameter identityParameter)
+        {
+            Value = identityParameter ?? throw new ArgumentNullException(nameof(identityParameter));
+        }
+
+        /// <summary>
         /// Gets the parameter's value.
         /// </summary>
         /// <value>

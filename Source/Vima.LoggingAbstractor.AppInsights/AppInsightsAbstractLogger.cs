@@ -54,7 +54,7 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
-            var allParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
+            var allParameters = GetGlobalAndLocalLoggingParameters(parameters);
             var traceTelemetry = new TraceTelemetry(message)
             {
                 SeverityLevel = LoggingLevelMapper.ConvertLoggingLevelToSeverityLevel(loggingLevel)
@@ -77,7 +77,7 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
-            var allParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
+            var allParameters = GetGlobalAndLocalLoggingParameters(parameters);
             var exceptionTelemetry = new ExceptionTelemetry(exception)
             {
                 SeverityLevel = LoggingLevelMapper.ConvertLoggingLevelToSeverityLevel(loggingLevel)

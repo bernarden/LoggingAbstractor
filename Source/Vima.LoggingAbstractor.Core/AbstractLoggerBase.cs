@@ -95,9 +95,16 @@ namespace Vima.LoggingAbstractor.Core
         /// </summary>
         /// <param name="localParameters">The logging parameters that are explicitly specified by the user on logging call.</param>
         /// <returns>All parameters to be logged.</returns>
-        protected IEnumerable<ILoggingParameter> GetGlobalAndLocalLoggingParameters(IEnumerable<ILoggingParameter> localParameters)
+        protected IList<ILoggingParameter> GetGlobalAndLocalLoggingParameters(IEnumerable<ILoggingParameter> localParameters)
         {
-            var globalAndLocalParameters = localParameters.Concat(_settings.GlobalLoggingParameters);
+            var globalAndLocalParameters = localParameters.Concat(_settings.GlobalLoggingParameters).ToList();
+
+            var globalIdentityParameter = _settings.IdentityProvider?.Invoke();
+            if (globalIdentityParameter != null)
+            {
+                globalAndLocalParameters.Add(new LoggingIdentityParameter(globalIdentityParameter));
+            }
+
             return globalAndLocalParameters;
         }
     }

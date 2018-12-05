@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Core
@@ -29,5 +30,13 @@ namespace Vima.LoggingAbstractor.Core
             get => _globalLoggingParameters ?? (_globalLoggingParameters = new List<ILoggingParameter>());
             set => _globalLoggingParameters = value;
         }
+
+        /// <summary>
+        /// Gets or sets the identity provider.
+        /// </summary>
+        /// <value>
+        /// The identity provider.
+        /// </value>
+        public Func<IdentityParameter> IdentityProvider { get; set; }
     }
 }
