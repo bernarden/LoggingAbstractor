@@ -6,7 +6,7 @@
     <Authors>Victor Usoltsev</Authors>
     <Description>Logging Abstractor is a library for .NET that allows you to swap out logging providers with ease.</Description>
     <Copyright>Copyright © Victor Usoltsev 2018</Copyright>
-    <PackageLicenseUrl>https://github.com/bernarden/LoggingAbstractor/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIconUrl>https://raw.githubusercontent.com/bernarden/LoggingAbstractor/master/Resources/NugetIcon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/bernarden/LoggingAbstractor</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -32,6 +32,10 @@
   <ItemGroup>
     <PackageReference Include="SharpRaven" Version="2.4.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.2" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md" Pack="true" PackagePath="LICENSE.md" />
   </ItemGroup>
 
   <ItemGroup>
