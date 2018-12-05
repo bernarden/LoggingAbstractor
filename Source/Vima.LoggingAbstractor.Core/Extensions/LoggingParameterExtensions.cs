@@ -66,5 +66,23 @@ namespace Vima.LoggingAbstractor.Core.Extensions
 
             return result;
         }
+
+        /// <summary>
+        /// Extracts the identity information.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>Identity value</returns>
+        public static IdentityParameter ExtractIdentity(this IEnumerable<ILoggingParameter> parameters)
+        {
+            ILoggingParameter loggingParameter = parameters
+                .FirstOrDefault(x => x.LoggingParameterType == LoggingParameterType.Identity);
+
+            if (loggingParameter != null && loggingParameter is ILoggingParameter<IdentityParameter> identity)
+            {
+                return identity.Value;
+            }
+
+            return null;
+        }
     }
 }

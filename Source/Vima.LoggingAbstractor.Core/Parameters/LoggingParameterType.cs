@@ -11,8 +11,13 @@
         Tags,
 
         /// <summary>
-        /// The data parameter
+        /// The data parameter.
         /// </summary>
-        Data
+        Data,
+
+        /// <summary>
+        /// The identity parameter.
+        /// </summary>
+        Identity
     }
 }

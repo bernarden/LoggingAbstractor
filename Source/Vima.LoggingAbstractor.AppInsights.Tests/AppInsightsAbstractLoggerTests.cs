@@ -33,8 +33,9 @@ namespace Vima.LoggingAbstractor.AppInsights.Tests
                 var appInsightsLogger = CreateAppInsightsAbstractLogger(out var telemetryClient);
                 var exception = new Exception("Test-" + DateTime.UtcNow.ToString("s"));
 
-                LoggingTagsParameter loggingTagsParameter = new LoggingTagsParameter(new[] { "tag", "tag2" });
-                var loggingParameters = new List<ILoggingParameter> { loggingTagsParameter };
+                var loggingTagsParameter = new LoggingTagsParameter(new[] { "tag", "tag2" });
+                var loggingIdentityParameter = new LoggingIdentityParameter("identity", "name");
+                var loggingParameters = new List<ILoggingParameter> { loggingTagsParameter, loggingIdentityParameter };
 
                 // Act
                 appInsightsLogger.TraceException(exception, LoggingLevel.Critical, loggingParameters);
