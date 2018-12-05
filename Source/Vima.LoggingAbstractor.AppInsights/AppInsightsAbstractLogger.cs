@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
 using Vima.LoggingAbstractor.Core;
 using Vima.LoggingAbstractor.Core.Extensions;
@@ -53,11 +54,12 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
-            var allParameters = GetGlobalAndLocalLoggingParameters(parameters);
+            var allParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
             var traceTelemetry = new TraceTelemetry(message)
             {
                 SeverityLevel = LoggingLevelMapper.ConvertLoggingLevelToSeverityLevel(loggingLevel)
             };
+            SetIdentityParameter(traceTelemetry, allParameters);
             AddParametersToProperties(traceTelemetry, allParameters);
             _telemetryClient.Track(traceTelemetry);
         }
@@ -75,13 +77,25 @@ namespace Vima.LoggingAbstractor.AppInsights
                 return;
             }
 
-            var allParameters = GetGlobalAndLocalLoggingParameters(parameters);
+            var allParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
             var exceptionTelemetry = new ExceptionTelemetry(exception)
             {
                 SeverityLevel = LoggingLevelMapper.ConvertLoggingLevelToSeverityLevel(loggingLevel)
             };
+            SetIdentityParameter(exceptionTelemetry, allParameters);
             AddParametersToProperties(exceptionTelemetry, allParameters);
             _telemetryClient.Track(exceptionTelemetry);
+        }
+
+        private static void SetIdentityParameter(ITelemetry exceptionTelemetry, IEnumerable<ILoggingParameter> loggingParameters)
+        {
+            var identity = loggingParameters.ExtractIdentity();
+            if (identity == null || string.IsNullOrEmpty(identity.Identity))
+            {
+                return;
+            }
+
+            exceptionTelemetry.Context.User.Id = identity.Identity;
         }
 
         private static void AddParametersToProperties(ISupportProperties telemetry, IEnumerable<ILoggingParameter> parameters)

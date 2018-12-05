@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mindscape.Raygun4Net;
 using Mindscape.Raygun4Net.AspNetCore;
 using Vima.LoggingAbstractor.Core;
 using Vima.LoggingAbstractor.Core.Extensions;
@@ -53,6 +54,7 @@ namespace Vima.LoggingAbstractor.Raygun
             }
 
             IEnumerable<ILoggingParameter> loggingParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
+            SetIdentityParameters(loggingParameters);
             var messageException = new RaygunMessageException(message);
             var data = ExtractDataValues(loggingParameters);
             var tags = ExtractTags(loggingParameters, loggingLevel);
@@ -73,6 +75,7 @@ namespace Vima.LoggingAbstractor.Raygun
             }
 
             IEnumerable<ILoggingParameter> loggingParameters = GetGlobalAndLocalLoggingParameters(parameters).ToList();
+            SetIdentityParameters(loggingParameters);
             var data = ExtractDataValues(loggingParameters);
             var tags = ExtractTags(loggingParameters, loggingLevel);
             _raygunClient.Send(exception, tags, data);
@@ -87,7 +90,7 @@ namespace Vima.LoggingAbstractor.Raygun
 
         private static Dictionary<string, string> ExtractDataValues(IEnumerable<ILoggingParameter> parameters)
         {
-            var dataCount = 0;
+            var dataCount = 1;
             var dataDictionary = new Dictionary<string, string>();
             foreach (string data in parameters.ExtractData())
             {
@@ -95,6 +98,20 @@ namespace Vima.LoggingAbstractor.Raygun
             }
 
             return dataDictionary;
+        }
+
+        private void SetIdentityParameters(IEnumerable<ILoggingParameter> loggingParameters)
+        {
+            var identity = loggingParameters.ExtractIdentity();
+            if (identity == null || string.IsNullOrEmpty(identity.Identity))
+            {
+                return;
+            }
+
+            _raygunClient.UserInfo = new RaygunIdentifierMessage(identity.Identity)
+            {
+                FullName = identity.Name
+            };
         }
     }
 }
