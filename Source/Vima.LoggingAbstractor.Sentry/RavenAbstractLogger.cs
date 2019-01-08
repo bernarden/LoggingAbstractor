@@ -14,27 +14,27 @@ namespace Vima.LoggingAbstractor.Sentry
     /// </summary>
     /// <seealso cref="AbstractLoggerBase" />
     /// <seealso cref="ISentryAbstractLogger" />
-    public class SentryAbstractLogger : AbstractLoggerBase, ISentryAbstractLogger
+    public class RavenAbstractLogger : AbstractLoggerBase, ISentryAbstractLogger
     {
         private readonly RavenClient _ravenClient;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SentryAbstractLogger"/> class.
+        /// Initializes a new instance of the <see cref="RavenAbstractLogger"/> class.
         /// </summary>
         /// <param name="ravenClient">The raven client.</param>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
-        public SentryAbstractLogger(RavenClient ravenClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
+        public RavenAbstractLogger(RavenClient ravenClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
             : base(new AbstractLoggerSettings { MinimalLoggingLevel = minimalLoggingLevel })
         {
             _ravenClient = ravenClient ?? throw new ArgumentNullException(nameof(ravenClient));
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SentryAbstractLogger"/> class.
+        /// Initializes a new instance of the <see cref="RavenAbstractLogger"/> class.
         /// </summary>
         /// <param name="ravenClient">The raven client.</param>
         /// <param name="settings">The logger's settings.</param>
-        public SentryAbstractLogger(RavenClient ravenClient, AbstractLoggerSettings settings)
+        public RavenAbstractLogger(RavenClient ravenClient, AbstractLoggerSettings settings)
             : base(settings ?? throw new ArgumentNullException(nameof(settings)))
         {
             _ravenClient = ravenClient ?? throw new ArgumentNullException(nameof(ravenClient));
