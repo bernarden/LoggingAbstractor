@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.2.3</Version>
-    <FileVersion>0.2.3</FileVersion>
+    <Version>0.2.4</Version>
+    <FileVersion>0.2.4</FileVersion>
     <Authors>Victor Usoltsev</Authors>
     <Description>Logging Abstractor is a library for .NET that allows you to swap out logging providers with ease.</Description>
     <Copyright>Copyright © Victor Usoltsev 2018</Copyright>
