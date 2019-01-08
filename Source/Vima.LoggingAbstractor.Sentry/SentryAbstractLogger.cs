@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sentry;
+using Sentry.Protocol;
 using Vima.LoggingAbstractor.Core;
 using Vima.LoggingAbstractor.Core.Extensions;
 using Vima.LoggingAbstractor.Core.Parameters;
@@ -55,7 +56,7 @@ namespace Vima.LoggingAbstractor.Sentry
 
             _hub.WithScope(scope =>
             {
-                SetupSentryScope(loggingLevel, parameters, scope);
+                SetupSentryScope(scope, loggingLevel, parameters);
 
                 _hub.CaptureMessage(message);
             });
@@ -76,7 +77,7 @@ namespace Vima.LoggingAbstractor.Sentry
 
             _hub.WithScope(scope =>
             {
-                SetupSentryScope(loggingLevel, parameters, scope);
+                SetupSentryScope(scope, loggingLevel, parameters);
 
                 _hub.CaptureException(exception);
             });
@@ -87,12 +88,19 @@ namespace Vima.LoggingAbstractor.Sentry
             return parameters.ExtractTags().ToDictionary(tag => tag);
         }
 
-        private void SetupSentryScope(LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters, Scope scope)
+        private void SetupSentryScope(BaseScope scope, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             var loggingParameters = GetGlobalAndLocalLoggingParameters(parameters);
             Dictionary<string, string> tags = GenerateTags(loggingParameters);
             scope.SetTags(tags);
             scope.Level = LoggingLevelMapper.ConvertLoggingLevelToSentryLevel(loggingLevel);
+
+            var identity = loggingParameters.ExtractIdentity();
+            if (!string.IsNullOrEmpty(identity?.Identity))
+            {
+                scope.User.Id = identity.Identity;
+                scope.User.Username = identity.Name;
+            }
 
             var extraCount = 1;
             foreach (string data in loggingParameters.ExtractData())
