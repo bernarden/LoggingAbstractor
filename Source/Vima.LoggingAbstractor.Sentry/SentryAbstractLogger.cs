@@ -17,28 +17,28 @@ namespace Vima.LoggingAbstractor.Sentry
     /// <seealso cref="ISentryAbstractLogger" />
     public class SentryAbstractLogger : AbstractLoggerBase, ISentryAbstractLogger
     {
-        private readonly IHub _hub;
+        private readonly ISentryClient _sentryClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SentryAbstractLogger"/> class.
         /// </summary>
-        /// <param name="hub">The Sentry hub.</param>
+        /// <param name="sentryClient">The Sentry client.</param>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
-        public SentryAbstractLogger(IHub hub, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
+        public SentryAbstractLogger(ISentryClient sentryClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
             : base(new AbstractLoggerSettings { MinimalLoggingLevel = minimalLoggingLevel })
         {
-            _hub = hub ?? throw new ArgumentNullException(nameof(hub));
+            _sentryClient = sentryClient ?? throw new ArgumentNullException(nameof(sentryClient));
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SentryAbstractLogger"/> class.
         /// </summary>
-        /// <param name="hub">The Sentry hub.</param>
+        /// <param name="sentryClient">The Sentry client.</param>
         /// <param name="settings">The logger's settings.</param>
-        public SentryAbstractLogger(IHub hub, AbstractLoggerSettings settings)
+        public SentryAbstractLogger(ISentryClient sentryClient, AbstractLoggerSettings settings)
             : base(settings ?? throw new ArgumentNullException(nameof(settings)))
         {
-            _hub = hub ?? throw new ArgumentNullException(nameof(hub));
+            _sentryClient = sentryClient ?? throw new ArgumentNullException(nameof(sentryClient));
         }
 
         /// <summary>
@@ -54,12 +54,8 @@ namespace Vima.LoggingAbstractor.Sentry
                 return;
             }
 
-            _hub.WithScope(scope =>
-            {
-                SetupSentryScope(scope, loggingLevel, parameters);
-
-                _hub.CaptureMessage(message);
-            });
+            var scope = CreateSentryScope(loggingLevel, parameters);
+            _sentryClient.CaptureEvent(new SentryEvent { Message = message }, scope);
         }
 
         /// <summary>
@@ -75,12 +71,8 @@ namespace Vima.LoggingAbstractor.Sentry
                 return;
             }
 
-            _hub.WithScope(scope =>
-            {
-                SetupSentryScope(scope, loggingLevel, parameters);
-
-                _hub.CaptureException(exception);
-            });
+            var scope = CreateSentryScope(loggingLevel, parameters);
+            _sentryClient.CaptureEvent(new SentryEvent(exception), scope);
         }
 
         private static Dictionary<string, string> GenerateTags(IEnumerable<ILoggingParameter> parameters)
@@ -88,10 +80,12 @@ namespace Vima.LoggingAbstractor.Sentry
             return parameters.ExtractTags().ToDictionary(tag => tag);
         }
 
-        private void SetupSentryScope(BaseScope scope, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        private Scope CreateSentryScope(LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             var loggingParameters = GetGlobalAndLocalLoggingParameters(parameters);
             Dictionary<string, string> tags = GenerateTags(loggingParameters);
+
+            var scope = new Scope(new SentryOptions());
             scope.SetTags(tags);
             scope.Level = LoggingLevelMapper.ConvertLoggingLevelToSentryLevel(loggingLevel);
 
@@ -107,6 +101,8 @@ namespace Vima.LoggingAbstractor.Sentry
             {
                 scope.SetExtra($"Extra #{extraCount++}", data);
             }
+
+            return scope;
         }
     }
 }
