@@ -649,7 +649,7 @@
   </Rules>
 	<Rules AnalyzerId="Microsoft.CodeAnalysis.CSharp" RuleNamespace="Microsoft.CodeAnalysis.CSharp">
     <Rule Id="CS1573" Action="Hidden" />
-    <Rule Id="CS1591" Action="Hidden" />
+    <Rule Id="CS1591" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1101" Action="None" />
