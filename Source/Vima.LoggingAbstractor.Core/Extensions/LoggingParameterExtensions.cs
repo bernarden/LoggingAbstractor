@@ -14,7 +14,7 @@ namespace Vima.LoggingAbstractor.Core.Extensions
         /// Extracts the tags.
         /// </summary>
         /// <param name="parameters">The logging parameters.</param>
-        /// <returns>Tag values</returns>
+        /// <returns>Tag values.</returns>
         public static IEnumerable<string> ExtractTags(this IEnumerable<ILoggingParameter> parameters)
         {
             List<ILoggingParameter> loggingParameters = parameters
@@ -42,7 +42,7 @@ namespace Vima.LoggingAbstractor.Core.Extensions
         /// Extracts the data values.
         /// </summary>
         /// <param name="parameters">The logging parameters.</param>
-        /// <returns>Data values</returns>
+        /// <returns>Data values.</returns>
         public static IEnumerable<string> ExtractData(this IEnumerable<ILoggingParameter> parameters)
         {
             List<ILoggingParameter> loggingParameters = parameters
@@ -71,7 +71,7 @@ namespace Vima.LoggingAbstractor.Core.Extensions
         /// Extracts the identity information.
         /// </summary>
         /// <param name="parameters">The parameters.</param>
-        /// <returns>Identity value</returns>
+        /// <returns>Identity value.</returns>
         public static IdentityParameter ExtractIdentity(this IEnumerable<ILoggingParameter> parameters)
         {
             ILoggingParameter loggingParameter = parameters
