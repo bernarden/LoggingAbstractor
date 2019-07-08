@@ -79,7 +79,7 @@ namespace Vima.LoggingAbstractor.Core
         /// Determines whether tracing should be performed.
         /// </summary>
         /// <param name="loggingLevel">The logging level.</param>
-        /// <returns>Value indicating whether tracing should be performed</returns>
+        /// <returns>Value indicating whether tracing should be performed.</returns>
         protected bool ShouldBeTraced(LoggingLevel loggingLevel)
         {
             if (loggingLevel == LoggingLevel.None)
