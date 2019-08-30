@@ -86,7 +86,7 @@ task Test {
 task NugetPackage{
   Foreach ($projectPath in $ProjectsToPublish)
   {
-    exec { MSBuild "/t:pack" "/p:IncludeSource=true" "/p:Configuration=$VsConfiguration" $projectPath "/p:PackageOutputPath=$PackageDirectory" }
+    exec { MSBuild "/t:pack" "/p:IncludeSource=true" "/p:SymbolPackageFormat=snupkg" "/p:Configuration=$VsConfiguration" $projectPath "/p:PackageOutputPath=$PackageDirectory" }
   }
 }
 
