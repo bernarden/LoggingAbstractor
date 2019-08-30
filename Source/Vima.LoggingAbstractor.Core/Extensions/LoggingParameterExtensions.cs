@@ -84,5 +84,23 @@ namespace Vima.LoggingAbstractor.Core.Extensions
 
             return null;
         }
+
+        /// <summary>
+        /// Extracts the environment information.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>Environment value.</returns>
+        public static string ExtractEnvironment(this IEnumerable<ILoggingParameter> parameters)
+        {
+            ILoggingParameter loggingParameter = parameters
+                .FirstOrDefault(x => x.LoggingParameterType == LoggingParameterType.Environment);
+
+            if (loggingParameter != null && loggingParameter is ILoggingParameter<string> environment)
+            {
+                return environment.Value;
+            }
+
+            return null;
+        }
     }
 }
