@@ -12,8 +12,8 @@ properties {
   $NugetFileUrl = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 
   $NugetPackages = @(
-    @{"Name" = "vswhere"; "Version" = "2.4.1"; "Alias" = "VSWhere"; "ExePath" = "tools/vswhere.exe"},
-    @{"Name" = "NUnit.ConsoleRunner"; "Version" = "3.8.0"; "Alias" = "NUnitConsole"; "ExePath" = "tools/nunit3-console.exe" }
+    @{"Name" = "vswhere"; "Version" = "2.7.1"; "Alias" = "VSWhere"; "ExePath" = "tools/vswhere.exe"},
+    @{"Name" = "NUnit.ConsoleRunner"; "Version" = "3.10.0"; "Alias" = "NUnitConsole"; "ExePath" = "tools/nunit3-console.exe" }
     )
 
   $TestsConfig=@(
@@ -118,12 +118,11 @@ function DownloadNugetPackagesAndSetAliases()
 
 function SetMSBuildAlias()
 {
-  $path = VSWhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
+  $path = vswhere -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe | select-object -first 1
   if ($path) {
-    $path = join-path $path 'MSBuild\15.0\Bin\MSBuild.exe'
     Set-Alias MSBuild $path -Scope Script
   }else {
-      throw "MSBuild is not found. Please install VS2017 or later."
+    throw "MSBuild is not found. Please install VS2017 or later."
   }
 }
 
