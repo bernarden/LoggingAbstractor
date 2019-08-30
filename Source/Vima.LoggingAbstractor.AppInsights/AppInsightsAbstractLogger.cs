@@ -102,6 +102,12 @@ namespace Vima.LoggingAbstractor.AppInsights
         {
             IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
 
+            var environment = loggingParameters.ExtractEnvironment();
+            if (!string.IsNullOrEmpty(environment))
+            {
+                telemetry.Properties.Add("Environment", environment);
+            }
+
             var tagCount = 1;
             foreach (string tag in loggingParameters.ExtractTags())
             {
