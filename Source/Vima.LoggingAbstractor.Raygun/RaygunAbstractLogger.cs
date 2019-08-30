@@ -83,8 +83,17 @@ namespace Vima.LoggingAbstractor.Raygun
 
         private static List<string> ExtractTags(IEnumerable<ILoggingParameter> loggingParameters, LoggingLevel loggingLevel)
         {
-            List<string> extractTags = loggingParameters.ExtractTags().ToList();
+            var parameters = loggingParameters.ToList();
+            var extractTags = parameters.ExtractTags().ToList();
+
             extractTags.Add(loggingLevel.ToString("G"));
+
+            var environment = parameters.ExtractEnvironment();
+            if (!string.IsNullOrEmpty(environment))
+            {
+                extractTags.Add(environment);
+            }
+
             return extractTags;
         }
 
