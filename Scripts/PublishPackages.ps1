@@ -33,21 +33,11 @@ function Get-Approval-To-Execute {
 function Publish-Packages {
     param ( [System.Array] $Packages)
 
-    $nugetExeFile = Get-Item -Path $NugetDir
-
-    $symbolsPackagesPattern = ".*.symbols.nupkg"
-    $nugetPackagesPattern = ".*(?<!\.symbols)\.nupkg"
-    
-    $symbolsPackages = $Packages | Where-Object {$_.Name -match $symbolsPackagesPattern}
-    foreach ($symbolsPackage in $symbolsPackages) {
-        Write-Host "Publishing $($symbolsPackage.Name)" -ForegroundColor Yellow  
-        $args = @("push", $symbolsPackage.FullName, "-source", "https://nuget.smbsrc.net/")
-        & $nugetExeFile.FullName $args
-    }
-
+    $nugetPackagesPattern = ".*\.nupkg"
+    $nugetExeFile = Get-Item -Path $NugetDir   
     $nugetPackages = $Packages | Where-Object {$_.Name -match $nugetPackagesPattern}
     foreach ($nugetPackage in $nugetPackages) {
-        Write-Host "Publishing $($nugetPackage.Name)" -ForegroundColor Yellow
+        Write-Host "Publishing package: $($nugetPackage.Name)" -ForegroundColor Yellow
         $args = @("push", $nugetPackage.FullName, "-source", "https://api.nuget.org/v3/index.json")
         & $nugetExeFile.FullName $args
     }
