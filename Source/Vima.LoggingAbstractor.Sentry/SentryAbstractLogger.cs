@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sentry;
-using Sentry.Protocol;
 using Vima.LoggingAbstractor.Core;
 using Vima.LoggingAbstractor.Core.Extensions;
 using Vima.LoggingAbstractor.Core.Parameters;
@@ -88,6 +87,12 @@ namespace Vima.LoggingAbstractor.Sentry
             var scope = new Scope(new SentryOptions());
             scope.SetTags(tags);
             scope.Level = LoggingLevelMapper.ConvertLoggingLevelToSentryLevel(loggingLevel);
+
+            var environment = loggingParameters.ExtractEnvironment();
+            if (!string.IsNullOrEmpty(environment))
+            {
+                scope.Environment = environment;
+            }
 
             var identity = loggingParameters.ExtractIdentity();
             if (!string.IsNullOrEmpty(identity?.Identity))

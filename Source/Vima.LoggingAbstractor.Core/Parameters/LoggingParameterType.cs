@@ -18,6 +18,11 @@
         /// <summary>
         /// The identity parameter.
         /// </summary>
-        Identity
+        Identity,
+
+        /// <summary>
+        /// The environment parameter.
+        /// </summary>
+        Environment
     }
 }
