@@ -56,7 +56,7 @@ Certain logging platforms store a logging level tag against each log, this allow
 | Warning| Warning|Warning|Warning
 | Error| Error|Error|Error
 | Critical| Critical|Critical|Critical
-| None| Verbose      |None|Debug
+| None| None      |None|None
 
 *Does not support logging levels. Logging level is added as a tag
 
