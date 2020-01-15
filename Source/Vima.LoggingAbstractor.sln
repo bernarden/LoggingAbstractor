@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.Core", "Vima.LoggingAbstractor.Core\Vima.LoggingAbstractor.Core.csproj", "{3FB0E95B-327C-4679-8DB4-4769813BED6B}"
 EndProject
@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.Sent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.Core.Tests", "Vima.LoggingAbstractor.Core.Tests\Vima.LoggingAbstractor.Core.Tests.csproj", "{1FE06ABE-1840-48FC-B897-86467D804171}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vima.LoggingAbstractor.Console", "Vima.LoggingAbstractor.Console\Vima.LoggingAbstractor.Console.csproj", "{E7BB5BD5-1565-4186-856E-A985E2800E16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vima.LoggingAbstractor.Console", "Vima.LoggingAbstractor.Console\Vima.LoggingAbstractor.Console.csproj", "{E7BB5BD5-1565-4186-856E-A985E2800E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
