@@ -28,6 +28,8 @@
     <CodeAnalysisRuleSet>..\ca.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Vima.LoggingAbstractor.AppInsights.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,7 +39,7 @@
 
   <ItemGroup>
     <None Include="..\..\LICENSE.md" Pack="true" PackagePath="LICENSE.md" />
-    <None Include="..\..\Resources\NugetIcon.png" Pack="true" PackagePath="\icon.png"/>
+    <None Include="..\..\Resources\NugetIcon.png" Pack="true" PackagePath="icon.png" />
   </ItemGroup>
 
   <ItemGroup>
