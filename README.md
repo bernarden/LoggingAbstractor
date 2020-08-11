@@ -2,6 +2,11 @@
 # Logging Abstractor
 
 [![Build status](https://ci.appveyor.com/api/projects/status/nw12mgqdk7usuh37/branch/master?svg=true)](https://ci.appveyor.com/project/bernarden/loggingabstractor/branch/master)
+[![NuGet](https://img.shields.io/nuget/v/LoggingAbstractor.AppInsights.svg)](https://www.nuget.org/packages/LoggingAbstractor.AppInsights/)
+[![NuGet](https://img.shields.io/nuget/v/LoggingAbstractor.Raygun.svg)](https://www.nuget.org/packages/LoggingAbstractor.Raygun/)
+[![NuGet](https://img.shields.io/nuget/v/LoggingAbstractor.Sentry.svg)](https://www.nuget.org/packages/LoggingAbstractor.Sentry/)
+[![NuGet](https://img.shields.io/nuget/v/LoggingAbstractor.Console.svg)](https://www.nuget.org/packages/LoggingAbstractor.Console/)
+[![NuGet](https://img.shields.io/nuget/v/LoggingAbstractor.Core.svg)](https://www.nuget.org/packages/LoggingAbstractor.Core/)
 
 Provides an interface which standardizes server side logging across third party logging platforms using .NET standard. 
 This makes it easy to swap out logging providers, log to multiple platforms at once and standardize your projects logging interface. 
