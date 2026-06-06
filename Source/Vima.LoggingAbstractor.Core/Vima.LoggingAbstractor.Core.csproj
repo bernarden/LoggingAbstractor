@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.2.5</Version>
-    <FileVersion>0.2.5</FileVersion>
+    <Version>0.3.0</Version>
+    <FileVersion>0.3.0</FileVersion>
     <Authors>Bernarden</Authors>
     <Description>Logging Abstractor is a library for .NET that allows you to swap out logging providers with ease.</Description>
     <Copyright>Copyright © Bernarden 2018</Copyright>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net46;net45;net40;net35;netstandard1.0;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AssemblyName>Vima.LoggingAbstractor.Core</AssemblyName>
     <RootNamespace>Vima.LoggingAbstractor.Core</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Core.xml</DocumentationFile>
@@ -31,32 +31,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
+    <PackageReference Include="System.Text.Json" Version="10.0.8" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\LICENSE.md" Pack="true" PackagePath="LICENSE.md" />
-    <None Include="..\..\Resources\NugetIcon.png" Pack="true" PackagePath="\icon.png"/>
+    <None Include="..\..\Resources\NugetIcon.png" Pack="true" PackagePath="\icon.png" />
   </ItemGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net46'">
-    <DefineConstants>NET46</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
-    <DefineConstants>NET45</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='net35'">
-    <DefineConstants>NET35</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.0'">
-    <DefineConstants>NETSTANDARD1_0</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <DefineConstants>NETSTANDARD2_0</DefineConstants>
-  </PropertyGroup>
 </Project>

@@ -10,23 +10,25 @@ namespace Vima.LoggingAbstractor.AppInsights.Tests
 {
     public sealed class AppInsightsAbstractLoggerTests
     {
-        private const string ApiKey = "";
+        private const string ConnectionString = "";
 
         private static AppInsightsAbstractLogger CreateAppInsightsAbstractLogger(out TelemetryClient telemetryClient)
         {
-            if (string.IsNullOrEmpty(ApiKey))
+            if (string.IsNullOrEmpty(ConnectionString))
             {
-                throw new ArgumentNullException(nameof(ApiKey));
+                throw new ArgumentNullException(nameof(ConnectionString));
             }
 
-            telemetryClient = new TelemetryClient(new TelemetryConfiguration(ApiKey));
+            var configuration = TelemetryConfiguration.CreateDefault();
+            configuration.ConnectionString = ConnectionString;
+            telemetryClient = new TelemetryClient(configuration);
             var appInsightsLogger = new AppInsightsAbstractLogger(telemetryClient);
             return appInsightsLogger;
         }
 
         public class TraceException
         {
-            [Fact(Skip = "Needs an Application Insights ApiKey.")]
+            [Fact(Skip = "Needs an Application Insights ConnectionString.")]
             public void ShouldTraceExceptionWithTags()
             {
                 // Arrange

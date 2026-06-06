@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Core.NoOpLogger
@@ -14,8 +15,10 @@ namespace Vima.LoggingAbstractor.Core.NoOpLogger
         /// Traces the message.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
-        public void TraceMessage(string message)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceMessage(string message)
         {
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -23,8 +26,10 @@ namespace Vima.LoggingAbstractor.Core.NoOpLogger
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        public void TraceMessage(string message, LoggingLevel loggingLevel)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceMessage(string message, LoggingLevel loggingLevel)
         {
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -33,16 +38,20 @@ namespace Vima.LoggingAbstractor.Core.NoOpLogger
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
+            return Task.CompletedTask;
         }
 
         /// <summary>
         /// Traces the exception.
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
-        public void TraceException(Exception exception)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceException(Exception exception)
         {
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -50,8 +59,10 @@ namespace Vima.LoggingAbstractor.Core.NoOpLogger
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        public void TraceException(Exception exception, LoggingLevel loggingLevel)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceException(Exception exception, LoggingLevel loggingLevel)
         {
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -60,8 +71,10 @@ namespace Vima.LoggingAbstractor.Core.NoOpLogger
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
+            return Task.CompletedTask;
         }
     }
 }

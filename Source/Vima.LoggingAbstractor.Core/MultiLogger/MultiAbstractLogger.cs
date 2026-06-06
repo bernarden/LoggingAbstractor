@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Core.MultiLogger
@@ -26,9 +27,10 @@ namespace Vima.LoggingAbstractor.Core.MultiLogger
         /// Traces the message.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
-        public void TraceMessage(string message)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceMessage(string message)
         {
-            TraceMessage(message, LoggingLevel.Verbose);
+           return TraceMessage(message, LoggingLevel.Verbose);
         }
 
         /// <summary>
@@ -36,9 +38,10 @@ namespace Vima.LoggingAbstractor.Core.MultiLogger
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        public void TraceMessage(string message, LoggingLevel loggingLevel)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceMessage(string message, LoggingLevel loggingLevel)
         {
-            TraceMessage(message, loggingLevel, Enumerable.Empty<ILoggingParameter>());
+            return TraceMessage(message, loggingLevel, Enumerable.Empty<ILoggingParameter>());
         }
 
         /// <summary>
@@ -47,12 +50,13 @@ namespace Vima.LoggingAbstractor.Core.MultiLogger
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
             foreach (var logger in _loggers)
             {
-                logger.TraceMessage(message, loggingLevel, loggingParameters);
+               await logger.TraceMessage(message, loggingLevel, loggingParameters);
             }
         }
 
@@ -60,9 +64,10 @@ namespace Vima.LoggingAbstractor.Core.MultiLogger
         /// Traces the exception.
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
-        public void TraceException(Exception exception)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceException(Exception exception)
         {
-            TraceException(exception, LoggingLevel.Critical);
+            return TraceException(exception, LoggingLevel.Critical);
         }
 
         /// <summary>
@@ -70,9 +75,10 @@ namespace Vima.LoggingAbstractor.Core.MultiLogger
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        public void TraceException(Exception exception, LoggingLevel loggingLevel)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task TraceException(Exception exception, LoggingLevel loggingLevel)
         {
-            TraceException(exception, loggingLevel, Enumerable.Empty<ILoggingParameter>());
+           return TraceException(exception, loggingLevel, Enumerable.Empty<ILoggingParameter>());
         }
 
         /// <summary>
@@ -81,12 +87,13 @@ namespace Vima.LoggingAbstractor.Core.MultiLogger
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             IEnumerable<ILoggingParameter> loggingParameters = parameters.ToList();
             foreach (var logger in _loggers)
             {
-                logger.TraceException(exception, loggingLevel, loggingParameters);
+               await logger.TraceException(exception, loggingLevel, loggingParameters);
             }
         }
     }

@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.2.5</Version>
-    <FileVersion>0.2.5</FileVersion>
+    <Version>0.3.0</Version>
+    <FileVersion>0.3.0</FileVersion>
     <Authors>Bernarden</Authors>
     <Description>Logging Abstractor is a library for .NET that allows you to swap out logging providers with ease.</Description>
     <Copyright>Copyright © Bernarden 2018</Copyright>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net40;net45;net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net462;netstandard2.0;net8.0;net9.0;net10.0</TargetFrameworks>
     <AssemblyName>Vima.LoggingAbstractor.Sentry</AssemblyName>
     <RootNamespace>Vima.LoggingAbstractor.Sentry</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Sentry.xml</DocumentationFile>
@@ -30,22 +30,14 @@
     <WarningsAsErrors />
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net461' OR '$(TargetFramework)'=='netstandard2.0'">
-    <DefineConstants>SentrySDK</DefineConstants>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net461' OR '$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="Sentry" Version="2.1.8" />
-  </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="SharpRaven" Version="2.4.0" />
+    <PackageReference Include="Sentry" Version="6.6.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\LICENSE.md" Pack="true" PackagePath="LICENSE.md" />
-    <None Include="..\..\Resources\NugetIcon.png" Pack="true" PackagePath="\icon.png"/>
+    <None Include="..\..\Resources\NugetIcon.png" Pack="true" PackagePath="\icon.png" />
   </ItemGroup>
 
   <ItemGroup>

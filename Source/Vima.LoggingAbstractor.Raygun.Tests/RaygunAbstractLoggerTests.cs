@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Mindscape.Raygun4Net.AspNetCore;
+using Mindscape.Raygun4Net;
 using Vima.LoggingAbstractor.Core;
 using Vima.LoggingAbstractor.Core.Parameters;
 using Xunit;
@@ -11,14 +11,14 @@ namespace Vima.LoggingAbstractor.Raygun.Tests
     {
         private const string ApiKey = "";
 
-        private static RaygunAbstractLogger CreateRaygunAbstractLogger()
+        private static RaygunAbstractLogger CreateRaygunAbstractLogger(out RaygunClient raygunClient)
         {
             if (string.IsNullOrEmpty(ApiKey))
             {
                 throw new ArgumentNullException(nameof(ApiKey));
             }
 
-            var raygunClient = new RaygunClient(ApiKey);
+            raygunClient = new RaygunClient(new RaygunSettings() { ApiKey = ApiKey });
             raygunClient.SendingMessage += (sender, args) => args.Message.Details.MachineName = string.Empty;
             var raygunLogger = new RaygunAbstractLogger(raygunClient);
             return raygunLogger;
@@ -30,7 +30,7 @@ namespace Vima.LoggingAbstractor.Raygun.Tests
             public void ShouldTraceExceptionWithTags()
             {
                 // Arrange
-                var raygunLogger = CreateRaygunAbstractLogger();
+                var raygunLogger = CreateRaygunAbstractLogger(out _);
                 var exception = new Exception("Test-" + DateTime.UtcNow.ToString("s"));
 
                 var loggingTagsParameter = new LoggingTagsParameter(new[] { "tag", "tag2" });

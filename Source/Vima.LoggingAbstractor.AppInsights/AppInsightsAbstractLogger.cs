@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Channel;
 using Microsoft.ApplicationInsights.DataContracts;
@@ -47,11 +48,12 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public override Task TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
-                return;
+                return Task.CompletedTask;
             }
 
             var allParameters = GetGlobalAndLocalLoggingParameters(parameters);
@@ -62,6 +64,7 @@ namespace Vima.LoggingAbstractor.AppInsights
             SetIdentityParameter(traceTelemetry, allParameters);
             AddParametersToProperties(traceTelemetry, allParameters);
             _telemetryClient.Track(traceTelemetry);
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -70,11 +73,12 @@ namespace Vima.LoggingAbstractor.AppInsights
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public override Task TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
-                return;
+                return Task.CompletedTask;
             }
 
             var allParameters = GetGlobalAndLocalLoggingParameters(parameters);
@@ -85,6 +89,7 @@ namespace Vima.LoggingAbstractor.AppInsights
             SetIdentityParameter(exceptionTelemetry, allParameters);
             AddParametersToProperties(exceptionTelemetry, allParameters);
             _telemetryClient.Track(exceptionTelemetry);
+            return Task.CompletedTask;
         }
 
         private static void SetIdentityParameter(ITelemetry exceptionTelemetry, IEnumerable<ILoggingParameter> loggingParameters)
