@@ -1,7 +1,7 @@
-﻿#if SentrySDK
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Sentry;
 using Vima.LoggingAbstractor.Core;
 using Vima.LoggingAbstractor.Core.Extensions;
@@ -46,15 +46,17 @@ namespace Vima.LoggingAbstractor.Sentry
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public override Task TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
-                return;
+                return Task.CompletedTask;
             }
 
             var scope = CreateSentryScope(loggingLevel, parameters);
             _sentryClient.CaptureEvent(new SentryEvent { Message = message }, scope);
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -63,15 +65,17 @@ namespace Vima.LoggingAbstractor.Sentry
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public override Task TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
-                return;
+                return Task.CompletedTask;
             }
 
             var scope = CreateSentryScope(loggingLevel, parameters);
             _sentryClient.CaptureEvent(new SentryEvent(exception), scope);
+            return Task.CompletedTask;
         }
 
         private static Dictionary<string, string> GenerateTags(IEnumerable<ILoggingParameter> parameters)
@@ -111,4 +115,3 @@ namespace Vima.LoggingAbstractor.Sentry
         }
     }
 }
-#endif

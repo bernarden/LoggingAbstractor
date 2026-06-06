@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.2.5</Version>
-    <FileVersion>0.2.5</FileVersion>
+    <Version>0.3.0</Version>
+    <FileVersion>0.3.0</FileVersion>
     <Authors>Bernarden</Authors>
     <Description>Logging Abstractor is a library for .NET that allows you to swap out logging providers with ease.</Description>
     <Copyright>Copyright © Bernarden 2018</Copyright>
@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
     <AssemblyName>Vima.LoggingAbstractor.Raygun</AssemblyName>
     <RootNamespace>Vima.LoggingAbstractor.Raygun</RootNamespace>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Vima.LoggingAbstractor.Raygun.xml</DocumentationFile>
@@ -31,7 +31,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Mindscape.Raygun4Net.AspNetCore" Version="6.4.1" />
+    <PackageReference Include="Mindscape.Raygun4Net.NetCore.Common" Version="11.2.5" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="All" />
   </ItemGroup>
 

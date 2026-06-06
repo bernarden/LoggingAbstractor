@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Core.Tests
@@ -16,12 +17,14 @@ namespace Vima.LoggingAbstractor.Core.Tests
         {
         }
 
-        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        public override Task TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
+            return Task.CompletedTask;
         }
 
-        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        public override Task TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
+            return Task.CompletedTask;
         }
 
         public new bool ShouldBeTraced(LoggingLevel loggingLevel)

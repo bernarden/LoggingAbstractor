@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
+using System.Text.Json;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Core.Extensions
@@ -59,7 +59,7 @@ namespace Vima.LoggingAbstractor.Core.Extensions
             {
                 if (loggingParameter is ILoggingParameter<object> data)
                 {
-                    string value = JsonConvert.SerializeObject(data.Value);
+                    string value = JsonSerializer.Serialize(data.Value);
                     result.Add(value);
                 }
             }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Vima.LoggingAbstractor.Core.Parameters;
 
 namespace Vima.LoggingAbstractor.Core
@@ -25,9 +26,10 @@ namespace Vima.LoggingAbstractor.Core
         /// Traces the message.
         /// </summary>
         /// <param name="message">The message to be logged.</param>
-        public virtual void TraceMessage(string message)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public virtual Task TraceMessage(string message)
         {
-            TraceMessage(message, LoggingLevel.Verbose);
+            return TraceMessage(message, LoggingLevel.Verbose);
         }
 
         /// <summary>
@@ -35,9 +37,10 @@ namespace Vima.LoggingAbstractor.Core
         /// </summary>
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        public virtual void TraceMessage(string message, LoggingLevel loggingLevel)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public virtual Task TraceMessage(string message, LoggingLevel loggingLevel)
         {
-            TraceMessage(message, loggingLevel, Enumerable.Empty<ILoggingParameter>());
+            return TraceMessage(message, loggingLevel, Enumerable.Empty<ILoggingParameter>());
         }
 
         /// <summary>
@@ -46,15 +49,17 @@ namespace Vima.LoggingAbstractor.Core
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public abstract void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters);
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public abstract Task TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters);
 
         /// <summary>
         /// Traces the exception.
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
-        public virtual void TraceException(Exception exception)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public virtual Task TraceException(Exception exception)
         {
-            TraceException(exception, LoggingLevel.Critical);
+            return TraceException(exception, LoggingLevel.Critical);
         }
 
         /// <summary>
@@ -62,9 +67,10 @@ namespace Vima.LoggingAbstractor.Core
         /// </summary>
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
-        public virtual void TraceException(Exception exception, LoggingLevel loggingLevel)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public virtual Task TraceException(Exception exception, LoggingLevel loggingLevel)
         {
-            TraceException(exception, loggingLevel, Enumerable.Empty<ILoggingParameter>());
+            return TraceException(exception, loggingLevel, Enumerable.Empty<ILoggingParameter>());
         }
 
         /// <summary>
@@ -73,7 +79,8 @@ namespace Vima.LoggingAbstractor.Core
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public abstract void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters);
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public abstract Task TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters);
 
         /// <summary>
         /// Determines whether tracing should be performed.

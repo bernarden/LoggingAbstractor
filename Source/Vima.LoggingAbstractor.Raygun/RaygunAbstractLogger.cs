@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Mindscape.Raygun4Net;
-using Mindscape.Raygun4Net.AspNetCore;
 using Vima.LoggingAbstractor.Core;
 using Vima.LoggingAbstractor.Core.Extensions;
 using Vima.LoggingAbstractor.Core.Parameters;
@@ -16,14 +16,14 @@ namespace Vima.LoggingAbstractor.Raygun
     /// <seealso cref="IRaygunAbstractLogger" />
     public class RaygunAbstractLogger : AbstractLoggerBase, IRaygunAbstractLogger
     {
-        private readonly RaygunClient _raygunClient;
+        private readonly RaygunClientBase _raygunClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RaygunAbstractLogger"/> class.
         /// </summary>
         /// <param name="raygunClient">The Raygun client.</param>
         /// <param name="minimalLoggingLevel">The minimal logging level.</param>
-        public RaygunAbstractLogger(RaygunClient raygunClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
+        public RaygunAbstractLogger(RaygunClientBase raygunClient, LoggingLevel minimalLoggingLevel = LoggingLevel.Verbose)
             : base(new AbstractLoggerSettings { MinimalLoggingLevel = minimalLoggingLevel })
         {
             _raygunClient = raygunClient ?? throw new ArgumentNullException(nameof(raygunClient));
@@ -34,7 +34,7 @@ namespace Vima.LoggingAbstractor.Raygun
         /// </summary>
         /// <param name="raygunClient">The Raygun client.</param>
         /// <param name="settings">The logger's settings.</param>
-        public RaygunAbstractLogger(RaygunClient raygunClient, AbstractLoggerSettings settings)
+        public RaygunAbstractLogger(RaygunClientBase raygunClient, AbstractLoggerSettings settings)
             : base(settings ?? throw new ArgumentNullException(nameof(settings)))
         {
             _raygunClient = raygunClient ?? throw new ArgumentNullException(nameof(raygunClient));
@@ -46,19 +46,20 @@ namespace Vima.LoggingAbstractor.Raygun
         /// <param name="message">The message to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public override void TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public override Task TraceMessage(string message, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
-                return;
+                return Task.CompletedTask;
             }
 
             var loggingParameters = GetGlobalAndLocalLoggingParameters(parameters);
-            SetIdentityParameters(loggingParameters);
             var messageException = new RaygunMessageException(message);
-            var data = ExtractDataValues(loggingParameters);
             var tags = ExtractTags(loggingParameters, loggingLevel);
-            _raygunClient.Send(messageException, tags, data);
+            var data = ExtractDataValues(loggingParameters);
+            var userInfo = GetIdentityParameters(loggingParameters);
+            return _raygunClient.SendAsync(messageException, tags, data, userInfo);
         }
 
         /// <summary>
@@ -67,18 +68,19 @@ namespace Vima.LoggingAbstractor.Raygun
         /// <param name="exception">The exception to be logged.</param>
         /// <param name="loggingLevel">The logging level.</param>
         /// <param name="parameters">The logging parameters.</param>
-        public override void TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public override Task TraceException(Exception exception, LoggingLevel loggingLevel, IEnumerable<ILoggingParameter> parameters)
         {
             if (!ShouldBeTraced(loggingLevel))
             {
-                return;
+                return Task.CompletedTask;
             }
 
             var loggingParameters = GetGlobalAndLocalLoggingParameters(parameters);
-            SetIdentityParameters(loggingParameters);
-            var data = ExtractDataValues(loggingParameters);
             var tags = ExtractTags(loggingParameters, loggingLevel);
-            _raygunClient.Send(exception, tags, data);
+            var data = ExtractDataValues(loggingParameters);
+            var userInfo = GetIdentityParameters(loggingParameters);
+            return _raygunClient.SendAsync(exception, tags, data, userInfo);
         }
 
         private static List<string> ExtractTags(IEnumerable<ILoggingParameter> loggingParameters, LoggingLevel loggingLevel)
@@ -109,15 +111,15 @@ namespace Vima.LoggingAbstractor.Raygun
             return dataDictionary;
         }
 
-        private void SetIdentityParameters(IEnumerable<ILoggingParameter> loggingParameters)
+        private static RaygunIdentifierMessage GetIdentityParameters(IEnumerable<ILoggingParameter> loggingParameters)
         {
             var identity = loggingParameters.ExtractIdentity();
             if (identity == null || string.IsNullOrEmpty(identity.Identity))
             {
-                return;
+                return null;
             }
 
-            _raygunClient.UserInfo = new RaygunIdentifierMessage(identity.Identity)
+            return new RaygunIdentifierMessage(identity.Identity)
             {
                 FullName = identity.Name
             };
